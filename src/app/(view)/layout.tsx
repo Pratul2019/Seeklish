@@ -22,7 +22,7 @@ export default async function ViewLayout({
         </div>
       </header>
 
-      <main className="flex-1 md:mt-[calc(4rem)] mb-[calc(4rem)] px-2 mx-auto w-full">
+      <main className="flex-1 md:mt-[calc(6rem)] mb-[calc(6rem)] px-2 mx-auto w-full">
         {children}
       </main>
     </div>

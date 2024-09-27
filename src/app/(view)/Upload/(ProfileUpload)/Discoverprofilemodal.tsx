@@ -7,6 +7,7 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import { Discover } from "@/Components/types";
 import ImageUpload from "@/Components/UploadComp/ImageUpload";
 import PostDetails from "@/Components/UploadComp/PostDetails";
+import axios from "axios";
 
 interface DiscoverModalProps {
   discover: Discover;
@@ -24,27 +25,23 @@ export default function Discoverprofilemodal({
   const [loading, setLoading] = useState(false);
 
   const handleUpload = async () => {
-    if (loading || !session?.user) return ('/');
+    if (loading || !session?.user) return;
     setLoading(true);
+  
     try {
-      const res = await fetch(
+      const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/Profile/connectionpost/discoverupload`,
         {
-          method: "POST",
-          headers: {
-            "content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            postid: discover._id,
-            profileusername: discover.username,
-            currentusername: session.user.username,
-            discoverName,
-            caption,
-            discoverImage: selectedFile,
-          }),
+          postid: discover._id,
+          profileusername: discover.username,
+          currentusername: session.user.username,
+          discoverName,
+          caption,
+          discoverImage: selectedFile,
         }
       );
-      if (res.ok) {
+  
+      if (response.status === 200) {
         window.location.reload(); // Refresh the page if the response is OK
       }
       onClose();
@@ -68,7 +65,7 @@ export default function Discoverprofilemodal({
         <PostDetails postName={discoverName} setPostName={setDiscoverName} caption={caption} setCaption={setCaption} />
 
         <button
-          className="mt-4 hover:text-cyan-500 cursor-pointer p-2 rounded-3xl text-lg"
+          className="mt-4 hover:text-teal-500 cursor-pointer p-2 rounded-3xl text-lg"
           onClick={handleUpload}
           disabled={!selectedFile || !caption || !discoverName || loading}
         >

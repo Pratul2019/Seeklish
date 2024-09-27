@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 export default function RestoreUserForm({ username }: { username: string }) {
   const [isRestoring, setIsRestoring] = useState(false);
@@ -10,13 +11,11 @@ export default function RestoreUserForm({ username }: { username: string }) {
   const handleRestore = async () => {
     setIsRestoring(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/RestoreUser`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username }),
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/RestoreUser`, {
+        username,
       });
-
-      if (response.ok) {
+  
+      if (response.status === 200) {
         // Redirect to home page or dashboard after successful restoration
         router.push('/signin');
       } else {
@@ -42,7 +41,7 @@ export default function RestoreUserForm({ username }: { username: string }) {
         onClick={handleRestore}
         disabled={isRestoring}
         className={`w-full flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md text-white ${
-          isRestoring ? 'bg-cyan-500 cursor-not-allowed' : 'bg-cyan-600 hover:bg-cyan-700'
+          isRestoring ? 'bg-teal-500 cursor-not-allowed' : 'bg-teal-600 hover:bg-teal-700'
         } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200`}
       >
         {isRestoring ? (

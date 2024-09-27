@@ -25,7 +25,7 @@ const Footer = () => {
             >
               <FaInstagram
                 size={25}
-                className="hover:text-cyan-500 cursor-pointer"
+                className="hover:text-teal-500 cursor-pointer"
               />
             </Link>
             <Link
@@ -34,7 +34,7 @@ const Footer = () => {
             >
               <FaLinkedin
                 size={25}
-                className="hover:text-cyan-500 cursor-pointer"
+                className="hover:text-teal-500 cursor-pointer"
               />
             </Link>
             <Link
@@ -43,13 +43,13 @@ const Footer = () => {
             >
               <FaFacebookF
                 size={25}
-                className="hover:text-cyan-500 cursor-pointer"
+                className="hover:text-teal-500 cursor-pointer"
               />
             </Link>
             <Link href="https://www.youtube.com/@seeklish" target="_blank">
               <FaYoutube
                 size={25}
-                className="hover:text-cyan-500 cursor-pointer"
+                className="hover:text-teal-500 cursor-pointer"
               />
             </Link>
           </div>

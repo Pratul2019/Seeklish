@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { BsFire } from "react-icons/bs";
 import Modal from "@/Components/Comp_Indv/Modal";
 import Link from "next/link";
-import { IoInformationCircle } from "react-icons/io5";
 import axios from "axios";
 
 interface LikeProps {
@@ -17,14 +16,17 @@ const Like: React.FC<LikeProps> = ({ id, likes, model }) => {
   const [likeData, setLikeData] = useState<string[]>(likes || []);
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isInfoOpen, setIsInfoOpen] = useState(false);
-
+  
   const handleLikePost = async () => {
+   
     setIsLoading(true);
     try {
       const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/Fetch/Like`, {
         postid: id,
         model,
+        headers: {
+          Authorization: `Bearer ${session?.sessionToken}`,
+        },
       });
       setLikeData(res.data.data);
     } catch (error) {
@@ -34,12 +36,12 @@ const Like: React.FC<LikeProps> = ({ id, likes, model }) => {
     }
   };
 
-  const getLikeInfo = () => {
-    if (likeData.length > 49) return "50+ likes (Blue)";
-    if (likeData.length > 19) return "20-49 likes (Red)";
-    if (likeData.length > 0) return "1-19 likes (Yellow)";
-    return "No likes (Gray)";
-  };
+  // const getLikeInfo = () => {
+  //   if (likeData.length > 49) return "50+ likes (Blue)";
+  //   if (likeData.length > 19) return "20-49 likes (Red)";
+  //   if (likeData.length > 0) return "1-19 likes (Yellow)";
+  //   return "No likes (Gray)";
+  // };
 
   const handleLike = () => {
     if (session?.user?.username) {
@@ -53,11 +55,11 @@ const Like: React.FC<LikeProps> = ({ id, likes, model }) => {
     <>
       <div>
         <div className="flex items-center gap-1 cursor-pointer mt-1">
-          <IoInformationCircle
+          {/* <IoInformationCircle
             size={15}
             className="ml-2 cursor-pointer"
             onClick={() => setIsInfoOpen(true)}
-          />
+          /> */}
           <div onClick={handleLike}>
             <BsFire
               size={28}
@@ -87,7 +89,7 @@ const Like: React.FC<LikeProps> = ({ id, likes, model }) => {
           </p>
           <Link href="/signin" passHref>
             <button
-              className={`bg-cyan-500 hover:bg-cyan-700 py-2 px-4 rounded-xl relative ${
+              className={`bg-teal-500 hover:bg-teal-700 py-2 px-4 rounded-xl relative ${
                 isLoading ? "opacity-50 cursor-not-allowed" : ""
               }`}
               onClick={() => setIsLoading(true)} // Set loading state on click
@@ -108,7 +110,7 @@ const Like: React.FC<LikeProps> = ({ id, likes, model }) => {
         </Modal>
       )}
 
-      {isInfoOpen && (
+      {/* {isInfoOpen && (
         <Modal title="Like Information" setIsOpen={setIsInfoOpen}>
           <p>Like Status: {getLikeInfo()}</p>
           <p>This icon indicates the number of likes:</p>
@@ -119,7 +121,7 @@ const Like: React.FC<LikeProps> = ({ id, likes, model }) => {
             <li>Gray: No likes</li>
           </ul>
         </Modal>
-      )}
+      )} */}
     </>
   );
 };

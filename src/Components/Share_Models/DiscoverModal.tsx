@@ -3,11 +3,7 @@
 import React, { useState, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import {
-  IoIosArrowDropleft,
-  IoIosArrowDropright,
-  IoIosClose,
-} from "react-icons/io";
+import { IoIosArrowDropleft, IoIosArrowDropright, IoIosClose } from "react-icons/io";
 import Image from "next/image";
 import { Discover } from "@/Components/types";
 import Modal from "@/Components/Comp_Indv/Modal";
@@ -24,83 +20,72 @@ interface DiscoverModalProps {
   onClose: () => void;
 }
 
-export default function DiscoverModal({
-  discover,
-  onClose,
-}: DiscoverModalProps) {
+export default function DiscoverModal({ discover, onClose }: DiscoverModalProps) {
   const { data: session } = useSession();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isOpenProfile, setIsOpenProfile] = useState(false);
   const pathname = usePathname();
 
   const handleNext = useCallback(() => {
-    setCurrentIndex(
-      (prevIndex) => (prevIndex + 1) % (discover.connectionpost.length + 1)
-    );
-  }, [discover.connectionpost.length]);
-
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % (discover.connectionpost?.length + 1 || 1));
+  }, [discover.connectionpost]);
+  
   const handlePrev = useCallback(() => {
-    setCurrentIndex(
-      (prevIndex) =>
-        (prevIndex - 1 + discover.connectionpost.length + 1) %
-        (discover.connectionpost.length + 1)
+    setCurrentIndex((prevIndex) => 
+      (prevIndex - 1 + (discover.connectionpost?.length + 1 || 1)) % (discover.connectionpost?.length + 1 || 1)
     );
-  }, [discover.connectionpost.length]);
-
+  }, [discover.connectionpost]);
+  
   const carouselItems = Array.isArray(discover.connectionpost)
     ? [discover, ...discover.connectionpost]
-    : [discover];
+    : discover.connectionpost === undefined ? [discover] : [];
 
-  const showNavigation =
-    Array.isArray(discover.connectionpost) &&
-    discover.connectionpost.length > 0;
+  const showNavigation = Array.isArray(discover.connectionpost) && discover.connectionpost.length > 0;
   const postUrl = `${process.env.NEXT_PUBLIC_API_URL}/discover/${discover._id}?from=link`;
   const isCurrentUser = session?.user.username === discover.username;
 
-  const renderCarouselItem = useCallback(
-    (item: Discover | Discover["connectionpost"][0], index: number) => (
-      <div key={index} className="w-full flex-shrink-0 flex flex-col gap-2">
-        <Image
-          className="w-full h-auto object-cover rounded-xl"
-          src={item.discoverImage}
-          alt={item.discoverName}
-          width={1000}
-          height={1000}
-          quality={100}
-          loading="lazy"
-        />
-        <div className="flex items-center justify-between text-xs md:text-sm">
-          <div className="flex items-center space-x-3">
-            <ConditionalProfilePicture
-              username={item.username}
-              image={item.image}
-              index={index}
-              setIsOpen={setIsOpenProfile}
-            />
-            <div className="flex flex-col min-w-0 flex-shrink">
-              <div className="text-sm font-medium truncate">{item.name}</div>
-              <Moment className="text-xs font-extralight text-gray-500" fromNow>
+  const renderCarouselItem = useCallback((item: Discover | Discover['connectionpost'][0], index: number) => (
+    <div key={index} className="w-full flex-shrink-0 flex flex-col gap-2">
+      <Image
+        className="w-full h-auto object-cover rounded-xl"
+        src={item.discoverImage}
+        alt={item.discoverName}
+        width={1000}
+        height={1000}
+        quality={100}
+        loading="lazy"
+      />
+      <div className="flex items-center justify-between text-xs md:text-sm">
+        <div className="flex items-center space-x-3">
+          <ConditionalProfilePicture
+            username={item.username}
+            image={item.image}
+            index={index}
+            
+            setIsOpen={setIsOpenProfile}
+          />
+          <div className="flex flex-col min-w-0 flex-shrink">
+            <div className="text-sm font-medium truncate">{item.name}</div>
+            <Moment className="text-xs font-extralight text-gray-500" fromNow>
                 {new Date(item.createdAt)}
               </Moment>
-            </div>
           </div>
-          {index !== 0 && (
-            <Connectiondelete
-              postId={discover._id}
-              connectionpostId={item._id}
-              iscurrentUser={isCurrentUser}
-              model="Discover"
-            />
-          )}
         </div>
-        <div className="p-2 rounded-b-xl flex flex-col gap-2">
-          <h3 className="text-lg">{item.discoverName}</h3>
-          <p className="text-sm w-auto break-words">{item.caption}</p>
-        </div>
+        {index !== 0 && (
+          <Connectiondelete
+            postId={discover._id}
+            connectionpostId={item._id}
+            iscurrentUser={isCurrentUser}
+            model="Discover"
+          />
+        )}
       </div>
-    ),
-    [isCurrentUser, discover._id]
-  );
+      <div className="p-2 rounded-b-xl flex flex-col gap-2">
+        <h3 className="text-lg">{item.discoverName}</h3>
+        <p className="text-sm w-auto break-words">{item.caption}</p>
+      </div>
+    </div>
+  ), [ isCurrentUser, discover._id]);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4 z-50 overflow-y-auto">
@@ -109,35 +94,31 @@ export default function DiscoverModal({
           <div className="flex justify-between p-2 border-b border-gray-700">
             <div className="flex items-center">
               {showNavigation && currentIndex > 0 && (
-                <button onClick={handlePrev} className="hover:text-cyan-500">
+                <button onClick={handlePrev} className="hover:text-teal-500">
                   <IoIosArrowDropleft size={20} />
                 </button>
               )}
               {showNavigation && (
-                <button
-                  onClick={handleNext}
-                  className="hover:text-cyan-500 ml-2"
-                >
+                <button onClick={handleNext} className="hover:text-teal-500 ">
                   <IoIosArrowDropright size={20} />
                 </button>
               )}
             </div>
+
             <div>
-              {discover.place && (
-                <a
-                  href={`https://www.google.com/maps?q=${encodeURIComponent(
-                    discover.place
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs font-light truncate hover:underline"
-                >
-                  {discover.place}
-                </a>
-              )}
+            {discover.place && (
+              <a
+                href={`https://www.google.com/maps?q=${encodeURIComponent(discover.place)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-light truncate hover:underline"
+              >
+                {discover.place}
+              </a>
+            )}
             </div>
             {pathname.startsWith("/discover/") ? (
-              <Link href="/">
+              <Link href="/discover">
                 <IoIosClose size={25} className="hover:text-red-500" />
               </Link>
             ) : (
@@ -181,12 +162,9 @@ export default function DiscoverModal({
         {isOpenProfile && (
           <Modal title="Let's get Started" setIsOpen={setIsOpenProfile}>
             <p className="mb-4 text-center">
-              Can&apos;t view profile without signing in!
+            can&apos;t view profile without signing in!
             </p>
-            <Link
-              href="/signin"
-              className="bg-cyan-500 hover:bg-cyan-700 py-2 px-4 rounded-xl text-center block"
-            >
+            <Link href="/signin" className="bg-teal-500 hover:bg-teal-700 py-2 px-4 rounded-xl text-center block">
               Sign In / Register
             </Link>
           </Modal>

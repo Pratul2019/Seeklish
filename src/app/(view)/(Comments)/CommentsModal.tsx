@@ -60,7 +60,7 @@ const CommentModal: React.FC<CommentModalProps> = ({
       <div className="flex flex-col gap-4 w-full">
         <div className="flex gap-2">
           <textarea
-            className="flex border-b border-cyan-700 text-center  bg-transparent w-full"
+            className="flex border-b border-teal-700 text-center  bg-transparent w-full"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             placeholder="Share.."
@@ -75,7 +75,7 @@ const CommentModal: React.FC<CommentModalProps> = ({
           >
             <BsSendArrowUp
               size={18}
-              className="hover:text-cyan-500 cursor-pointer"
+              className="hover:text-teal-500 cursor-pointer"
             />
           </button>
         </div>

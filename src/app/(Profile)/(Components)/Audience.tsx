@@ -1,12 +1,15 @@
+
 import Image from "next/image";
+import Link from "next/link";
 import { IoIosClose } from "react-icons/io";
 
 interface AudienceModalProps {
-  audience: { name: string; image: string }[];
+  audience: { name: string; image: string; username: string }[];
   onClose: () => void;
 }
 
 const AudienceModal: React.FC<AudienceModalProps> = ({ audience, onClose }) => {
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
       <div className="bg-header p-6 rounded-3xl max-w-xs w-full relative flex flex-col max-h-80 overflow-y-auto">
@@ -23,6 +26,7 @@ const AudienceModal: React.FC<AudienceModalProps> = ({ audience, onClose }) => {
           {audience.map((aud, index) => (
             <li key={index} className="p-2">
               <div className="flex items-center">
+                <Link href={aud.username}>
                 <Image
                   src={aud.image}
                   alt={aud.name}
@@ -31,6 +35,7 @@ const AudienceModal: React.FC<AudienceModalProps> = ({ audience, onClose }) => {
                   height={40}
                   priority
                 />
+                </Link>
                 <span>{aud.name}</span>
               </div>
             </li>

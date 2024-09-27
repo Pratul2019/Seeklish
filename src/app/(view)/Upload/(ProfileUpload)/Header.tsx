@@ -16,7 +16,7 @@ const Header = () => {
         <SiWpexplorer
           size={30}
           className={`cursor-pointer ${
-            pathname === "/Upload/Discoverupload" ? "text-cyan-700" : "hover:text-cyan-500"
+            pathname === "/Upload/Discoverupload" ? "text-teal-700" : "hover:text-teal-500"
           }`}
         />
       </Link>
@@ -24,7 +24,7 @@ const Header = () => {
         <HiHomeModern
           size={30}
           className={`cursor-pointer ${
-            pathname === "/Upload/Rentalupload" ? "text-cyan-700" : "hover:text-cyan-500"
+            pathname === "/Upload/Rentalupload" ? "text-teal-700" : "hover:text-teal-500"
           }`}
         />
       </Link>
@@ -32,7 +32,7 @@ const Header = () => {
         <MdAppShortcut
           size={30}
           className={`cursor-pointer ${
-            pathname === "/Upload/Appupload" ? "text-cyan-700" : "hover:text-cyan-500"
+            pathname === "/Upload/Appupload" ? "text-teal-700" : "hover:text-teal-500"
           }`}
         />
       </Link>

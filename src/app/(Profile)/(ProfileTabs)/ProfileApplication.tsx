@@ -82,7 +82,7 @@ const ProfileApp: React.FC<ProfileAppProps> = ({ apppro, isAllowed }) => {
                       {currentIndex > 0 && (
                         <button
                           onClick={() => handlePrev(app._id)}
-                          className="hover:text-cyan-500"
+                          className="hover:text-teal-500"
                         >
                           <IoIosArrowDropleft size={20} />
                         </button>
@@ -90,7 +90,7 @@ const ProfileApp: React.FC<ProfileAppProps> = ({ apppro, isAllowed }) => {
                       {carouselItems.length > 1 && (
                         <button
                           onClick={() => handleNext(app._id)}
-                          className="hover:text-cyan-500"
+                          className="hover:text-teal-500"
                         >
                           <IoIosArrowDropright size={20} />
                         </button>
@@ -102,7 +102,7 @@ const ProfileApp: React.FC<ProfileAppProps> = ({ apppro, isAllowed }) => {
                         <CiSquarePlus
                           size={25}
                           onClick={() => handleUploadModalOpen(app)}
-                          className="hover:text-cyan-500 "
+                          className="hover:text-teal-500 "
                         />
                       </div>
                     )}

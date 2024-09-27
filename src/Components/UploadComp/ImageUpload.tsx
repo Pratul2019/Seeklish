@@ -55,7 +55,7 @@ export default function ImageUpload({
         >
           <FaRegImages
             size={30}
-            className="text-gray-400 hover:text-cyan-500"
+            className="text-gray-400 hover:text-teal-500"
           />
         </div>
       )}

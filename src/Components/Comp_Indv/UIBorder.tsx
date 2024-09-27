@@ -4,7 +4,7 @@ import { FaCircleUser } from "react-icons/fa6";
 
 const UIBorder = () => {
   return (
-    <div className="p-4 rounded-xl min-w-48 max-w-52 border flex flex-col gap-4 items-center border-cyan-700">
+    <div className="p-4 rounded-xl min-w-48 max-w-52 border flex flex-col gap-4 items-center border-teal-700">
       <div className="border min-w-36 max-w-52"></div>
       <div className="flex">
         <div className="border w-28 h-28 grid  rounded-l-xl">

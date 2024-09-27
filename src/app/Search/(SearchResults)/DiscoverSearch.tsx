@@ -90,7 +90,7 @@ const DiscoverSearch = ({ results: initialResults }: DiscoverSearchProps) => {
                 {result.caption.substring(0, 45)}
                 {result.caption.length > 45 && (
                   <span
-                    className="text-cyan-600 cursor-pointer"
+                    className="text-teal-600 cursor-pointer"
                     onClick={() => handleViewMoreClick(result.caption)}
                   >
                     <IoIosMore size={20} />
@@ -120,7 +120,7 @@ const DiscoverSearch = ({ results: initialResults }: DiscoverSearchProps) => {
           </p>
           <Link href="/signin" passHref>
             <button
-              className={`bg-cyan-500 hover:bg-cyan-700 py-2 px-4 rounded-xl relative ${
+              className={`bg-teal-500 hover:bg-teal-700 py-2 px-4 rounded-xl relative ${
                 isLoading ? "opacity-50 cursor-not-allowed" : ""
               }`}
               onClick={handleSignIn}

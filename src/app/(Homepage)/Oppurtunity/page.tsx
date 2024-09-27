@@ -50,7 +50,7 @@ const Oppurtunity: NextPage = () => {
                 {opportunity.title}
               </h2>
               <p className="text-base mb-4">{opportunity.description}</p>
-              <div className="h-1 w-24 bg-cyan-500 rounded-full mt-auto"></div>
+              <div className="h-1 w-24 bg-teal-500 rounded-full mt-auto"></div>
             </div>
           ))}
         </div>

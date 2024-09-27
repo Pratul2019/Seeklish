@@ -9,8 +9,6 @@ import { SiWpexplorer } from "react-icons/si";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
-
-
 import { FaMagnifyingGlassLocation } from "react-icons/fa6";
 import Menu from "./Menu";
 
@@ -32,6 +30,7 @@ const Header: React.FC = () => {
     avatar: false,
     search: false,
   });
+
   const { data: session } = useSession();
   const router = useRouter();
   const pathname = usePathname();
@@ -55,18 +54,54 @@ const Header: React.FC = () => {
     setHoverStates((prev) => ({ ...prev, [button]: false }));
   };
 
+  const getIcon = (button: string) => {
+    switch (button) {
+      case "discover":
+        return (
+          <SiWpexplorer
+            size={32}
+            className={`${
+              activeButton === "discover" ? "text-teal-600" : ""
+            } hover:text-teal-500`}
+          />
+        );
+      case "rental":
+        return (
+          <HiHomeModern
+            size={30}
+            className={`${
+              activeButton === "rental" ? "text-teal-600" : ""
+            } hover:text-teal-500`}
+          />
+        );
+      case "application":
+        return (
+          <MdAppShortcut
+            size={30}
+            className={`${
+              activeButton === "application" ? "text-teal-600" : ""
+            } hover:text-teal-500`}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
-    <div className="flex py-4 px-2 backdrop-filter backdrop-blur-lg gap-6 md:gap-20 md:justify-center justify-between z-50">
+    <div className="flex p-5 backdrop-filter backdrop-blur-lg border-b-2 border-gray-700 gap-6 md:gap-12 md:justify-center justify-between z-50">
+      
       <div
-        className="flex items-center cursor-pointer justify-center relative"
+        className="flex items-center cursor-pointer justify-center relative hover:text-teal-500"
         onMouseEnter={() => handleMouseEnter("search")}
         onMouseLeave={() => handleMouseLeave("search")}
       >
-        <Link href={"/Search"}>
-          <FaMagnifyingGlassLocation size={30} aria-label="Search" className="hover:text-cyan-500" />
+        <Link href={"/Search"} className="flex items-center ">
+          <FaMagnifyingGlassLocation size={30} aria-label="Search" />
+          <span className="hidden md:inline ml-2">Search</span>
         </Link>
         {hoverStates.search && (
-          <div className="absolute -bottom-8 border-cyan-500 border bg-header p-2 rounded-3xl shadow-md text-xs whitespace-nowrap">
+          <div className="absolute -bottom-8 border-teal-500 border bg-header p-2 rounded-3xl shadow-md text-xs whitespace-nowrap md:hidden">
             Search Page
           </div>
         )}
@@ -80,11 +115,22 @@ const Header: React.FC = () => {
           onMouseLeave={() => handleMouseLeave(button as keyof HoverStates)}
           onClick={() => handleButtonClick(button)}
         >
-          {button === "discover" && <SiWpexplorer size={32} className={`hover:text-cyan-500 ${activeButton === "discover" ? "text-cyan-600" : ""}`} />}
-          {button === "rental" && <HiHomeModern size={30} className={`hover:text-cyan-500 ${activeButton === "rental" ? "text-cyan-600" : ""}`} />}
-          {button === "application" && <MdAppShortcut size={30} className={`hover:text-cyan-500 ${activeButton === "application" ? "text-cyan-600" : ""}`} />}
+          <div className="flex items-center hover:text-teal-500">
+            {getIcon(button) && (
+              <React.Fragment>
+                {getIcon(button)}
+                <span
+                  className={`hidden md:inline ml-2 ${
+                    activeButton === button ? "text-teal-600" : ""
+                  }`}
+                >
+                  {button.charAt(0).toUpperCase() + button.slice(1)}
+                </span>
+              </React.Fragment>
+            )}
+          </div>
           {hoverStates[button as keyof HoverStates] && (
-            <div className="absolute -bottom-8 border-cyan-500 border bg-header p-2 rounded-3xl shadow-md text-xs whitespace-nowrap">
+            <div className="absolute -bottom-8 border-teal-500 border bg-header p-2 rounded-3xl shadow-md text-xs whitespace-nowrap md:hidden">
               {button.charAt(0).toUpperCase() + button.slice(1)}
             </div>
           )}
@@ -98,7 +144,10 @@ const Header: React.FC = () => {
             onMouseEnter={() => handleMouseEnter("avatar")}
             onMouseLeave={() => handleMouseLeave("avatar")}
           >
-            <Link href={`/${session.user.username}`}>
+            <Link
+              href={`/${session.user.username}`}
+              className="flex items-center"
+            >
               <Image
                 className="rounded-xl w-9 h-9"
                 src={session.user.image || ""}
@@ -106,24 +155,28 @@ const Header: React.FC = () => {
                 width={1000}
                 height={1000}
               />
+              <span className="hidden md:inline ml-2 hover:text-teal-500">
+                {session.user.name}
+              </span>
             </Link>
             {hoverStates.avatar && (
-              <div className="absolute -bottom-8 border-cyan-500 border bg-header p-2 rounded-3xl shadow-md text-xs whitespace-nowrap">
+              <div className="absolute -bottom-8 border-teal-500 border bg-header p-2 rounded-3xl shadow-md text-xs whitespace-nowrap md:hidden">
                 {session.user.name}
               </div>
             )}
           </div>
         ) : (
           <div
-            className="flex items-center cursor-pointer justify-center"
+            className="flex items-center cursor-pointer justify-center hover:text-teal-500"
             onMouseEnter={() => handleMouseEnter("avatar")}
             onMouseLeave={() => handleMouseLeave("avatar")}
           >
-            <Link href="/signin">
+            <Link href="/signin" className="flex items-center">
               <RxAvatar size={32} />
+              <span className="hidden md:inline ml-2">Sign In</span>
             </Link>
             {hoverStates.avatar && (
-              <div className="absolute -bottom-8 border-cyan-500 border bg-header p-2 rounded-3xl shadow-md text-xs whitespace-nowrap">
+              <div className="absolute -bottom-8 border-teal-500 border bg-header p-2 rounded-3xl shadow-md text-xs whitespace-nowrap md:hidden">
                 Get Started
               </div>
             )}

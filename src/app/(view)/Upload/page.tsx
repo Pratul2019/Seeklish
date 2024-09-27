@@ -11,7 +11,7 @@ export default async function Upload() {
   }
 
   return (
-    <div className="flex  items-center justify-center gap-10">
+    <div className="flex  items-center justify-center p-4">
        Start Sharing your Experience
     </div>
   );

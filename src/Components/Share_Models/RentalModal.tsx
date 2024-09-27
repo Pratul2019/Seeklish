@@ -94,12 +94,12 @@ export default function RentalModal({ rental, onClose }: RentalModalProps) {
           <div className="flex justify-between p-2 border-b border-gray-700">
             <div className="flex items-center">
               {showNavigation && currentIndex > 0 && (
-                <button onClick={handlePrev} className="hover:text-cyan-500">
+                <button onClick={handlePrev} className="hover:text-teal-500">
                   <IoIosArrowDropleft size={20} />
                 </button>
               )}
               {showNavigation && (
-                <button onClick={handleNext} className="hover:text-cyan-500 ml-2">
+                <button onClick={handleNext} className="hover:text-teal-500 ">
                   <IoIosArrowDropright size={20} />
                 </button>
               )}
@@ -164,7 +164,7 @@ export default function RentalModal({ rental, onClose }: RentalModalProps) {
             <p className="mb-4 text-center">
             can&apos;t view profile without signing in!
             </p>
-            <Link href="/signin" className="bg-cyan-500 hover:bg-cyan-700 py-2 px-4 rounded-xl text-center block">
+            <Link href="/signin" className="bg-teal-500 hover:bg-teal-700 py-2 px-4 rounded-xl text-center block">
               Sign In / Register
             </Link>
           </Modal>

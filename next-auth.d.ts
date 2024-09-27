@@ -7,6 +7,7 @@ declare module "next-auth" {
       username: string;
      
     } & NextAuthSession["user"];
+    sessionToken: string | JWT;
   }
 
   interface User extends NextAuthUser {

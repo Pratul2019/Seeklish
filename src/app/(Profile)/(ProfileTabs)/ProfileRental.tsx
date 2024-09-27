@@ -87,7 +87,7 @@ const ProfileRental: React.FC<ProfileRentalProps> = ({
                       {currentIndex > 0 && (
                         <button
                           onClick={() => handlePrev(rental._id)}
-                          className="hover:text-cyan-500"
+                          className="hover:text-teal-500"
                         >
                           <IoIosArrowDropleft size={20} />
                         </button>
@@ -95,7 +95,7 @@ const ProfileRental: React.FC<ProfileRentalProps> = ({
                       {carouselItems.length > 1 && (
                         <button
                           onClick={() => handleNext(rental._id)}
-                          className="hover:text-cyan-500"
+                          className="hover:text-teal-500"
                         >
                           <IoIosArrowDropright size={20} />
                         </button>
@@ -107,7 +107,7 @@ const ProfileRental: React.FC<ProfileRentalProps> = ({
                         <CiSquarePlus
                           size={25}
                           onClick={() => handleUploadModalOpen(rental)}
-                          className="hover:text-cyan-500 "
+                          className="hover:text-teal-500 "
                         />
                       </div>
                     )}

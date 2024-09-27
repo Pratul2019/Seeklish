@@ -81,7 +81,7 @@ const Rentalui = ({ rental }: RentaluiProps) => {
             
           />
         </div>
-        <div className="flex items-center justify-between text-sm md:text-base">
+        <div className="flex items-center justify-between text-sm md:text-base ml-2">
           <div className="flex items-center gap-2">
           <ConditionalProfilePicture
                   username={item.username}
@@ -104,7 +104,7 @@ const Rentalui = ({ rental }: RentaluiProps) => {
             {item.caption.substring(0, 45)}
             {item.caption.length > 45 && (
               <span
-                className="text-cyan-600 cursor-pointer"
+                className="text-teal-600 cursor-pointer"
                 onClick={() => handleViewMoreClick(item.caption)}
               >
                 <IoIosMore size={20} />
@@ -123,7 +123,7 @@ const Rentalui = ({ rental }: RentaluiProps) => {
           <div className="flex items-center justify-between p-2">
             <div className="flex">
               {showNavigation && currentIndex > 0 ? (
-                <button onClick={handlePrev} className=" hover:text-cyan-500">
+                <button onClick={handlePrev} className=" hover:text-teal-500">
                   <IoIosArrowDropleft size={20} />
                 </button>
               ) : (
@@ -131,7 +131,7 @@ const Rentalui = ({ rental }: RentaluiProps) => {
               )}
 
               {showNavigation ? (
-                <button onClick={handleNext} className=" hover:text-cyan-500">
+                <button onClick={handleNext} className=" hover:text-teal-500">
                   <IoIosArrowDropright size={20} />
                 </button>
               ) : (
@@ -206,7 +206,7 @@ const Rentalui = ({ rental }: RentaluiProps) => {
           </p>
           <Link href="/signin" passHref>
             <button
-              className={`bg-cyan-500 hover:bg-cyan-700 py-2 px-4 rounded-xl relative ${
+              className={`bg-teal-500 hover:bg-teal-700 py-2 px-4 rounded-xl relative ${
                 isLoading ? "opacity-50 cursor-not-allowed" : ""
               }`}
               onClick={handleSignIn}

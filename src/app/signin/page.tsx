@@ -16,7 +16,7 @@ export default async function SignIn() {
   }
   return (
     <div className="flex h-screen justify-center items-center bg-light ">
-      <div className="w-full flex flex-col justify-center items-center max-w-md p-8 bg-header rounded-3xl relative">
+      <div className="w-full flex flex-col justify-center items-center max-w-md p-8 bg-gradient-to-t from-teal-900 to-header rounded-3xl relative">
         <Link href="/" className="absolute top-8 right-6">
           <IoChevronBackCircleSharp size={25} className="hover:text-red-500" />
         </Link>

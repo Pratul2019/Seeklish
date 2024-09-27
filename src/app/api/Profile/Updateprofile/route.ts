@@ -58,6 +58,68 @@ export async function POST(request: NextRequest) {
     await s3Client.send(command);
   }
 
+  async function updateAudience() {
+    // Get usernames from connections and audience
+    const connections = existingUser.connections;
+    for (const connectedUsername of connections) {
+      // console.log(`Updating audience for connected user: ${connectedUsername}`);
+
+      // Find user ID in UserModal
+      const connectedUser = await UserModel.findOne({
+        username: connectedUsername,
+      });
+
+      if (connectedUser) {
+        // console.log(`Found user ID for connected user: ${connectedUser.username}`);
+
+        // Update name and image in audience list
+        connectedUser.audience.set(existingUser.username, {
+          name: existingUser.name,
+          image: existingUser.image,
+        });
+
+        await connectedUser.save();
+
+        // console.log(
+        //   `Updated audience for connected user: ${connectedUsername}`
+        // );
+      } else {
+        console.log(`User not found for connected user: ${connectedUsername}`);
+      }
+    }
+  }
+
+  async function updateConnections() {
+    // Get usernames from connections and audience
+    const audiences = existingUser.audience;
+    for (const connectedUsername of audiences) {
+      // console.log(`Updating audience for connected user: ${connectedUsername}`);
+
+      // Find user ID in UserModal
+      const connectedUser = await UserModel.findOne({
+        username: connectedUsername,
+      });
+
+      if (connectedUser) {
+        // console.log(`Found user ID for connected user: ${connectedUser.username}`);
+
+        // Update name and image in audience list
+        connectedUser.connections.set(existingUser.username, {
+          name: existingUser.name,
+          image: existingUser.image,
+        });
+
+        await connectedUser.save();
+
+        // console.log(
+        //   `Updated audience for connected user: ${connectedUsername}`
+        // );
+      } else {
+        console.log(`User not found for connected user: ${connectedUsername}`);
+      }
+    }
+  }
+
   try {
     if (name) {
       existingUser.name = name;
@@ -73,7 +135,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Update posts in RentalModal
-     await RentalModel.updateMany(
+    await RentalModel.updateMany(
       {
         $or: [{ username: existingUser.username }],
       },
@@ -113,7 +175,7 @@ export async function POST(request: NextRequest) {
       }
     );
 
-     await RentalModel.updateMany(
+    await RentalModel.updateMany(
       {
         "connectionpost.username": existingUser.username,
       },
@@ -127,7 +189,6 @@ export async function POST(request: NextRequest) {
         arrayFilters: [{ "elem.username": existingUser.username }],
       }
     );
-    
 
     await DiscoverModel.updateMany(
       {
@@ -143,9 +204,8 @@ export async function POST(request: NextRequest) {
         arrayFilters: [{ "elem.username": existingUser.username }],
       }
     );
-   
 
-     await ApplicationModel.updateMany(
+    await ApplicationModel.updateMany(
       {
         "connectionpost.username": existingUser.username,
       },
@@ -174,23 +234,7 @@ export async function POST(request: NextRequest) {
       }
     );
 
-     await DiscoverModel.updateMany(
-      {
-        "comment.username": existingUser.username,
-      },
-      {
-        $set: {
-          "comment.$[elem].name": existingUser.name,
-          "comment.$[elem].image": existingUser.image,
-        },
-      },
-      {
-        arrayFilters: [{ "elem.username": existingUser.username }],
-      }
-    );
-   
-
-     await ApplicationModel.updateMany(
+    await DiscoverModel.updateMany(
       {
         "comment.username": existingUser.username,
       },
@@ -205,6 +249,26 @@ export async function POST(request: NextRequest) {
       }
     );
 
+    await ApplicationModel.updateMany(
+      {
+        "comment.username": existingUser.username,
+      },
+      {
+        $set: {
+          "comment.$[elem].name": existingUser.name,
+          "comment.$[elem].image": existingUser.image,
+        },
+      },
+      {
+        arrayFilters: [{ "elem.username": existingUser.username }],
+      }
+    );
+
+    await updateAudience();
+    console.log(`auidenice udpdated `);
+
+    await updateConnections();
+    console.log(`connections udpdated `);
 
     await existingUser.save();
 

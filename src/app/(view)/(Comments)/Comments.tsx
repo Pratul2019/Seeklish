@@ -105,7 +105,7 @@ const Comments: React.FC<CommentsProps> = ({ id, model, user }) => {
             <LiaComments
               size={25}
               className={`transform transition-transform duration-300 ${
-                isModalOpen ? " text-cyan-500" : "hover:text-cyan-500"
+                isModalOpen ? " text-teal-500" : "hover:text-teal-500"
               }`}
             />
           </button>
@@ -125,7 +125,7 @@ const Comments: React.FC<CommentsProps> = ({ id, model, user }) => {
           </p>
           <Link href="/signin" passHref>
             <button
-              className={`bg-cyan-500 hover:bg-cyan-700 py-2 px-4 rounded-xl relative ${
+              className={`bg-teal-500 hover:bg-teal-700 py-2 px-4 rounded-xl relative ${
                 isLoading ? "opacity-50 cursor-not-allowed" : ""
               }`}
               onClick={handleSignIn}

@@ -2,9 +2,7 @@ import type { Rental } from "@/Components/types";
 import axios from 'axios';
 import Rentalui from "./RentalUi";
 
-
 const Rental = async () => {
-  
 
   try {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/Fetch/Rentalfetch`);

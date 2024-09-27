@@ -70,7 +70,7 @@ export default function RentalUpload() {
         />
         <div className="w-full flex justify-end gap-4">
           <button
-            className={`bg-cyan-500 text-white px-4 py-2 rounded-xl hover:bg-cyan-600 transition-colors ${
+            className={`bg-teal-500 text-white px-4 py-2 rounded-xl hover:bg-teal-600 transition-colors ${
               loading || !caption || !rentalName
                 ? "opacity-50 cursor-not-allowed"
                 : ""
@@ -110,7 +110,7 @@ export default function RentalUpload() {
           )}
           {responseStatus === 200 ? (
             <Link href="/rental">
-              <button className="bg-cyan-500 hover:bg-cyan-700 py-2 px-4 rounded-xl relative">
+              <button className="bg-teal-500 hover:bg-teal-700 py-2 px-4 rounded-xl relative">
                 Okay
               </button>
             </Link>

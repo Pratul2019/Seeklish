@@ -8,8 +8,8 @@ const LoggingButton = () => {
 
   return (
     <Link href={session ? "/" : "/signin"}>
-      <button className="hover:bg-cyan-700 border mt-2 bg-header rounded-2xl p-2 px-4">
-        {session ? "Explore" : "Get Started"}
+      <button className="hover:bg-teal-400 mt-2 bg-teal-800 rounded-xl p-2 px-6">
+        {session ? "Explore" : "Login/Sign-Up"}
       </button>
     </Link>
   );

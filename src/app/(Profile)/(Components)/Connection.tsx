@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { IoIosClose } from "react-icons/io";
 import { PiToggleLeftFill, PiToggleRightFill } from "react-icons/pi";
 import axios from "axios";
+import Link from "next/link";
 
 interface Connection {
   username: string;
@@ -91,6 +92,7 @@ const ConnectionsModal: React.FC<ConnectionsModalProps> = ({
           {connections.map((connection, index) => (
             <li key={index} className="flex justify-between items-center p-2 gap-20">
               <div className="flex items-center">
+              <Link href={connection.username}>
                 <Image
                   src={connection.image}
                   alt={connection.name}
@@ -99,13 +101,14 @@ const ConnectionsModal: React.FC<ConnectionsModalProps> = ({
                   width={40}
                   priority
                 />
+                </Link>
                 <label>{connection.name}</label>
               </div>
               {profileUser === currentuser && (
                 checkedUsernames.includes(connection.username) ? (
                   <PiToggleRightFill
                     size={30}
-                    fill="cyan"
+                    fill="teal"
                     onClick={() => handleCheckboxChange(connection.username, false)}
                     className="cursor-pointer"
                   />
@@ -125,7 +128,7 @@ const ConnectionsModal: React.FC<ConnectionsModalProps> = ({
             <button
               onClick={handleSubmit}
               disabled={isSubmitting}
-              className="bg-header hover:text-cyan-700 p-3 rounded-full"
+              className="bg-header hover:text-teal-700 p-3 rounded-full"
             >
               {isSubmitting ? "Updating..." : "Update"}
             </button>

@@ -7,6 +7,7 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import { Rental } from "@/Components/types";
 import ImageUpload from "@/Components/UploadComp/ImageUpload";
 import PostDetails from "@/Components/UploadComp/PostDetails";
+import axios from "axios";
 
 interface RentalModalProps {
   rental: Rental;
@@ -25,27 +26,23 @@ export default function Rentalprofilemodal({
   const [loading, setLoading] = useState(false);
 
   const handleUpload = async () => {
-    if (loading || !session?.user) return ('/');
+    if (loading || !session?.user) return;
     setLoading(true);
+  
     try {
-      const res = await fetch(
+      const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/Profile/connectionpost/rentalupload`,
         {
-          method: "POST",
-          headers: {
-            "content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            postid: rental._id,
-            profileusername: rental.username,
-            currentusername: session.user.username,
-            rentalName,
-            caption,
-            rentalImage: selectedFile,
-          }),
+          postid: rental._id,
+          profileusername: rental.username,
+          currentusername: session.user.username,
+          rentalName,
+          caption,
+          rentalImage: selectedFile,
         }
       );
-      if (res.ok) {
+  
+      if (response.status === 200) {
         window.location.reload(); // Refresh the page if the response is OK
       }
       onClose();
@@ -77,7 +74,7 @@ export default function Rentalprofilemodal({
       />
         {/* <LocationSearch onPlaceSelected={setPlace} /> */}
         <button
-          className="mt-4 hover:text-cyan-500 cursor-pointer p-2 rounded-3xl text-lg"
+          className="mt-4 hover:text-teal-500 cursor-pointer p-2 rounded-3xl text-lg"
           onClick={handleUpload}
           disabled={
             !selectedFile || !caption  || !rentalName || loading

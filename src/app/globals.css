@@ -7,9 +7,8 @@
   --foreground-rgb: 0, 0, 0;
   --background-rgb: 250, 249, 246;
   --header-rgb: 255, 255, 255;
-  --homecolor-rgb: 14, 116, 144;
-  --nothomecolor-rgb: 250, 249, 246;
-  
+  --bgteal400-rgb: 45, 212, 191;
+  --bgteal800-rgb: 17, 94, 89;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,9 +16,6 @@
     --foreground-rgb: 255, 255, 255;
     --background-rgb: 16, 16, 16;
     --header-rgb: 0, 0, 0;
-    --homecolor-rgb: 0, 0, 0;
-    --nothomecolor-rgb: 14, 116, 144;
-    
   }
 }
 
@@ -33,6 +29,14 @@
 
 .hover-theme-bg:hover {
   background-color: rgb(var(--foreground-rgb));
+}
+
+.bg-collight:hover {
+  background-color: rgb(var(--bgteal400-rgb));
+}
+
+.bg-coldark {
+  background-color: rgb(var(--bgteal800-rgb));
 }
 
 .carousel-container {

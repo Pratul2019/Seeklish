@@ -32,7 +32,7 @@ const Menu: React.FC = () => {
   return (
     <div className="relative dropdown-container" ref={menuRef}>
       <button
-        className={`cursor-pointer bg-header ${isOpen ? "text-cyan-700" : ""} hover:text-cyan-700 rounded-full transition-colors duration-300`}
+        className={`cursor-pointer ${isOpen ? "text-teal-700" : ""} hover:text-teal-700 rounded-full transition-colors duration-300`}
         onClick={handleOpen}
         aria-haspopup="true"
         aria-expanded={isOpen}
@@ -45,7 +45,7 @@ const Menu: React.FC = () => {
             <li>
               <Link
                 href="/Oppurtunity"
-                className="flex items-center px-4 py-2 rounded-2xl hover-theme-bg hover:text-cyan-600 transition-colors duration-200"
+                className="flex items-center px-4 py-2 rounded-2xl hover-theme-bg hover:text-teal-600 transition-colors duration-200"
               >
                 <MdAssuredWorkload size={25} className="mr-3" />
                 Hustle
@@ -55,7 +55,7 @@ const Menu: React.FC = () => {
               <li className="mb-2">
                 <Link
                   href="/Upload"
-                  className="flex items-center px-4 py-2 rounded-2xl hover-theme-bg hover:text-cyan-600 transition-colors duration-200"
+                  className="flex items-center px-4 py-2 rounded-2xl hover-theme-bg hover:text-teal-600 transition-colors duration-200"
                   onClick={() => setIsOpen(false)}
                 >
                   <MdOutlineAddPhotoAlternate size={25} className="mr-3" />

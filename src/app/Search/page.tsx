@@ -89,13 +89,14 @@ export default function Search() {
   return (
     <div className="mx-auto">
       <div className="flex flex-col items-center">
-        <div className="flex flex-col gap-6 w-full lg:w-2/5 justify-center bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg shadow-xl">
+        <div className="flex flex-col gap-6 w-full xl:max-w-5xl justify-center bg-gradient-to-br from-teal-800 to-header rounded-lg shadow-xl">
           <div className="flex justify-between items-center p-4 rounded-lg bg-header">
-            <Link href="/">
+            <Link href="/" className="flex items-center gap-1 hover:text-teal-400">
               <FaHome
                 size={30}
-                className="hover:text-cyan-300 transition-colors"
+                className="hover:text-teal-300 transition-colors"
               />
+              <span className="hidden md:inline-block text-sm mt-1">Home</span>
             </Link>
 
             <div className="flex gap-6">
@@ -104,19 +105,25 @@ export default function Search() {
                 onClick={() => handleTabChange("User")}
                 icon={<FaCircleUser size={30} />}
                 disabled={isLoading}
+                text=" User"
               />
+              
               <TabButton
                 isActive={currentTab === "Discover"}
                 onClick={() => handleTabChange("Discover")}
                 icon={<SiWpexplorer size={30} />}
                 disabled={isLoading}
+                text=" Discover"
               />
+              
               <TabButton
                 isActive={currentTab === "Rental"}
                 onClick={() => handleTabChange("Rental")}
                 icon={<HiHomeModern size={30} />}
                 disabled={isLoading}
+                text="Rental"
               />
+              
             </div>
 
             <div className="flex items-center">
@@ -125,7 +132,7 @@ export default function Search() {
                   className="flex items-center cursor-pointer justify-center"
                   
                 >
-                  <Link href={`/${session.user.username}`}>
+                  <Link href={`/${session.user.username}`} className="flex items-center gap-1">
                     <Image
                       className="rounded-xl w-9 h-9"
                       src={session.user.image || ""}
@@ -133,12 +140,14 @@ export default function Search() {
                       width={1000}
                       height={1000}
                     />
+                    <span className="hidden md:inline-block mr-1 text-sm hover:text-teal-400">{session.user.name}</span>
                   </Link>
                  
                 </div>
               ) : (
-                <Link href="/signin">
+                <Link href="/signin" className="flex items-center gap-1 hover:text-teal-400">
                   <RxAvatar size={30} />
+                  <span className="hidden md:inline-block mr-1 text-sm ">Signin</span>
                 </Link>
               )}
               <div className="mt-2">
@@ -151,7 +160,7 @@ export default function Search() {
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-2 bg-transparent rounded-2xl focus:outline-none transition-colors"
+            className="w-full px-4 py-2 bg-transparent rounded-2xl focus:outline-none transition-colors placeholder:text-current"
             placeholder="Search...( User / Place )"
           />
         </div>

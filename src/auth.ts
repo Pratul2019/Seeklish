@@ -32,29 +32,38 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const uid = profile.id || profile.sub;
 
         try {
-          const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Login/User`, {
-            method: "POST",
-            headers: {
-              "content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              name,
-              email,
-              uid,
-              image,
-            }),
-          });
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/Login/User`,
+            {
+              method: "POST",
+              headers: {
+                "content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                name,
+                email,
+                uid,
+                image,
+              }),
+            }
+          );
 
           if (!res.ok) {
             throw new Error(`HTTP error! status: ${res.status}`);
           }
 
           const data = await res.json();
+          const isDelete = data.isdeleteuserrequest;
+          const deleteUsername = data.username;
 
-          if (data.isdeleteuserrequest) {
+          if (isDelete == true) {
             // Redirect to /RestoreUser if isdeleteuserrequest is true
             // Include the username as a query parameter
-            return `/RestoreUser/${encodeURIComponent(data.username)}`;
+            return `${
+              process.env.NEXT_PUBLIC_API_URL
+            }/RestoreUser/${encodeURIComponent(deleteUsername)}`;
+          } else {
+            console.log("Not deleting user, proceeding with sign-in...");
           }
 
           user.username = data.username;
@@ -88,6 +97,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
     async session({ session, token }) {
       // Add additional user information to the session object
+      session.sessionToken = token.toString();
       session.user.username = token.username;
       session.user.name = token.name;
       session.user.image = token.image;

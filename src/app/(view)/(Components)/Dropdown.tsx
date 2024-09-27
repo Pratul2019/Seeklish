@@ -68,7 +68,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   return (
     <div ref={dropdownRef} className="relative">
       <button
-        className="flex gap-2 hover:text-cyan-500"
+        className="flex gap-2 hover:text-teal-500"
         onClick={() => setShowDropdown((prev) => !prev)}
         aria-expanded={showDropdown}
         aria-label="Toggle Dropdown"
@@ -77,14 +77,14 @@ const Dropdown: React.FC<DropdownProps> = ({
       </button>
 
       {showDropdown && (
-        <div className="absolute right-0 border border-cyan-700 p-2 bg-header w-max text-xs rounded-xl z-50">
-          <div className="flex gap-2 px-4 py-2 items-center cursor-pointer hover:bg-cyan-700 rounded-xl">
+        <div className="absolute right-0 border border-teal-700 p-2 bg-header w-max text-xs rounded-xl z-50">
+          <div className="flex gap-2 px-4 py-2 items-center cursor-pointer hover:bg-teal-700 rounded-xl">
             <Share postUrl={postUrl} />
           </div>
           {isCurrentUser && (
             <div
               onClick={() => setShowDeleteModal(true)}
-              className="flex gap-2 px-4 py-2 cursor-pointer hover:bg-cyan-700 rounded-xl"
+              className="flex gap-2 px-4 py-2 cursor-pointer hover:bg-teal-700 rounded-xl"
             >
               <IoTrashBinSharp size={16} />
               <span>Delete</span>

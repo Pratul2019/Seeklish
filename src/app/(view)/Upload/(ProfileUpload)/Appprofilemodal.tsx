@@ -6,6 +6,7 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 
 import type { App } from "@/Components/types";
 import PostDetails from "@/Components/UploadComp/PostDetails";
+import axios from "axios";
 
 interface AppModalProps {
   app: App;
@@ -22,31 +23,26 @@ export default function Appprofilemodal({
   const [loading, setLoading] = useState(false);
 
   const handleUpload = async () => {
-    if (loading || !session?.user) return ('/');
+    if (loading || !session?.user) return;
     setLoading(true);
+  
     try {
-      const res = await fetch(
+      const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/Profile/connectionpost/appupload`,
         {
-          method: "POST",
-          headers: {
-            "content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            postid: app._id,
-            profileusername: app.username,
-            currentusername: session.user.username,
-            appName,
-            caption,
-          }),
+          postid: app._id,
+          profileusername: app.username,
+          currentusername: session.user.username,
+          appName,
+          caption,
         }
       );
-      if (res.ok) {
+  
+      if (response.status === 200) {
         window.location.reload(); // Refresh the page if the response is OK
       }
       onClose();
       setLoading(false);
-      
       return true;
     } catch (error) {
       console.log(error);
@@ -68,7 +64,7 @@ export default function Appprofilemodal({
         setCaption={setCaption}
       />
         <button
-          className=" mt-4 hover:text-cyan-500 cursor-pointer p-2 rounded-3xl text-lg "
+          className=" mt-4 hover:text-teal-500 cursor-pointer p-2 rounded-3xl text-lg "
           onClick={handleUpload}
           disabled={
             !caption  || !appName || loading

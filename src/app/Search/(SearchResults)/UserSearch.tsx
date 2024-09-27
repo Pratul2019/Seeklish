@@ -60,7 +60,7 @@ const UserSearch = ({ results }: SearchProps) => {
           </p>
           <Link href="/signin" passHref>
             <button
-              className={`bg-cyan-500 hover:bg-cyan-700 py-2 px-4 rounded-xl relative ${
+              className={`bg-teal-500 hover:bg-teal-700 py-2 px-4 rounded-xl relative ${
                 isLoading ? "opacity-50 cursor-not-allowed" : ""
               }`}
               onClick={handleSignIn}

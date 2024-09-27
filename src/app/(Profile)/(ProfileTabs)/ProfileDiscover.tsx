@@ -91,7 +91,7 @@ const ProfileDiscover: React.FC<ProfileDiscoverProps> = ({
                       {currentIndex > 0 && (
                         <button
                           onClick={() => handlePrev(discover._id)}
-                          className="hover:text-cyan-500"
+                          className="hover:text-teal-500"
                         >
                           <IoIosArrowDropleft size={20} />
                         </button>
@@ -99,7 +99,7 @@ const ProfileDiscover: React.FC<ProfileDiscoverProps> = ({
                       {carouselItems.length > 1 && (
                         <button
                           onClick={() => handleNext(discover._id)}
-                          className="hover:text-cyan-500"
+                          className="hover:text-teal-500"
                         >
                           <IoIosArrowDropright size={20} />
                         </button>
@@ -112,7 +112,7 @@ const ProfileDiscover: React.FC<ProfileDiscoverProps> = ({
                           <CiSquarePlus
                             size={25}
                             onClick={() => handleUploadModalOpen(discover)}
-                            className="hover:text-cyan-500 "
+                            className="hover:text-teal-500 "
                           />
                         </div>
                       )}

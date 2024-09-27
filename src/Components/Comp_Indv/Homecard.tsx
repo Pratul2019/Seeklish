@@ -16,7 +16,7 @@ const HomeCard: React.FC<CardProps> = ({
   image,
 }) => {
   return (
-    <div className="p-2 rounded-xl max-w-lg flex flex-col justify-between overflow-hidden min-h-72 relative">
+    <div className="p-2 rounded-3xl max-w-lg flex flex-col justify-between overflow-hidden min-h-72 relative">
       <div
         className="absolute inset-0 z-0"
         style={{
@@ -34,7 +34,7 @@ const HomeCard: React.FC<CardProps> = ({
           {icon}
           <h2 className="">{name}</h2>
         </div>
-        <a href={link} className="hover:bg-cyan-700 border  bg-header rounded-2xl p-2 px-4">
+        <a href={link} className="hover:bg-teal-400 bg-teal-800 rounded-xl p-2 px-6">
           Explore
         </a>
       </div>

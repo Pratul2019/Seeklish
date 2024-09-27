@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import { HiHomeModern } from "react-icons/hi2";
 import { MdAppShortcut } from "react-icons/md";
 import { SiWpexplorer } from "react-icons/si";
-import ProfileDiscover from "./ProfileDiscover";
+
 import ProfileRental from "./ProfileRental";
 import ProfileApp from "./ProfileApplication";
-
+import ProfileDiscover from "./ProfileDiscover";
 
 
 interface TabsProps {
@@ -40,7 +40,7 @@ export default function Tabs({
       <div className="flex gap-12 mt-6 justify-center">
         <div
           className={`flex gap-3 items-center ${
-            activeTab === "discover" ? "text-cyan-500" : ""
+            activeTab === "discover" ? "text-teal-500" : ""
           }`}
           onClick={() => handleTabChange("discover")}
         >
@@ -49,7 +49,7 @@ export default function Tabs({
         </div>
         <div
           className={`flex gap-3 items-center ${
-            activeTab === "rental" ? "text-cyan-500" : ""
+            activeTab === "rental" ? "text-teal-500" : ""
           }`}
           onClick={() => handleTabChange("rental")}
         >
@@ -58,7 +58,7 @@ export default function Tabs({
         </div>
         <div
           className={`flex gap-3 items-center ${
-            activeTab === "application" ? "text-cyan-500" : ""
+            activeTab === "application" ? "text-teal-500" : ""
           }`}
           onClick={() => handleTabChange("application")}
         >

@@ -102,11 +102,11 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ user, currentUser }) => {
       <Link href="/">
         <FaHome
           size={30}
-          className="hover:text-cyan-300 transition-colors duration-300"
+          className="hover:text-teal-300 transition-colors duration-300"
         />
       </Link>
       {IsHomeHover && (
-        <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 border-cyan-500 border bg-header p-2 rounded-3xl shadow-md text-xs whitespace-nowrap">
+        <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 border-teal-500 border bg-header p-2 rounded-3xl shadow-md text-xs whitespace-nowrap">
           Back to Home
         </div>
       )}
@@ -118,7 +118,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ user, currentUser }) => {
             <FaUserEdit
               size={25}
               onClick={() => setIsOptionsModalOpen(true)}
-              className="cursor-pointer hover:text-cyan-500"
+              className="cursor-pointer hover:text-teal-500"
             />
           )}
           <Image
@@ -143,8 +143,8 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ user, currentUser }) => {
               onClick={handleExplorer}
               className={`px-6 py-2 rounded-full transition-all duration-300 ${
                 isExplorer
-                  ? "border-cyan-900 border hover:bg-cyan-600"
-                  : "border-current border hover:bg-cyan-900"
+                  ? "border-teal-900 border hover:bg-teal-600"
+                  : "border-current border hover:bg-teal-900"
               }`}
             >
               {isExplorer ? "Unsync" : "Sync"}
@@ -170,15 +170,15 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ user, currentUser }) => {
 
       {isOptionsModalOpen && currentUser === user.username && (
         <Modal title="Profile Options" setIsOpen={setIsOptionsModalOpen}>
-          <div className="flex flex-col gap-4 w-full">
+          <div className="flex p-2 items-center justify-center gap-6">
             <button
               onClick={() => {
                 setIsOptionsModalOpen(false);
                 setIsEditProfileModalOpen(true);
               }}
-              className="flex items-center gap-2 text-sm hover:text-cyan-500 cursor-pointer w-full"
+              className="flex items-center gap-2 bg-teal-800 text-sm w-fit hover:bg-teal-500 cursor-pointer p-3 rounded-2xl"
             >
-              <FaUserEdit size={25} />
+              <FaUserEdit size={26} />
               <span>Edit Profile</span>
             </button>
             <button
@@ -186,7 +186,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ user, currentUser }) => {
                 setIsOptionsModalOpen(false);
                 setShowDeleteModal(true);
               }}
-              className="flex items-center gap-2 text-sm hover:text-cyan-500 cursor-pointer w-full"
+              className="flex items-center gap-2 bg-teal-800 text-sm w-fit hover:bg-teal-500 cursor-pointer p-3 rounded-2xl"
             >
               <RiDeleteBinLine size={25} />
               <span>Delete Account</span>
