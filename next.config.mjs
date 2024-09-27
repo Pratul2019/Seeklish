@@ -12,11 +12,8 @@ const nextConfig = {
       { protocol: "https", hostname: "lh3.googleusercontent.com" },
       { protocol: "https", hostname: "seeklish.s3.amazonaws.com" },
     ],
-    // Optimize image loading
-    // deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    // imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    // Enable image caching (adjust as needed)
     minimumCacheTTL: 60 * 60 * 24, // 1 day in seconds
+    formats: ['image/avif', 'image/webp'],
   },
 
   // Enable compression for better performance
@@ -40,35 +37,61 @@ const nextConfig = {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin',
           },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload',
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:;",
+          },
         ],
       },
     ];
   },
 
-  // Optimize for production environment
-  env: {
-    NODE_ENV: 'production',
+  // Enable build-time type checking
+  typescript: {
+    ignoreBuildErrors: false,
   },
 
-  // Enable output tracing for better debugging in production
-  outputTracing: true,
+  // Customize Webpack configuration
+  webpack: (config, { buildId, webpack }) => {
+    // Add any custom Webpack plugins
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        'process.env.BUILD_ID': JSON.stringify(buildId),
+      })
+    );
 
-  // Customize the build output directory if needed
-  // distDir: 'build',
+    return config;
+  },
 
-  // Add any necessary redirects
-  // async redirects() {
-  //   return [
-  //     // Add your redirects here
-  //   ];
+  // Configure runtime configuration
+  publicRuntimeConfig: {
+    // Add any configuration you want available on both server and client
+  },
+  serverRuntimeConfig: {
+    // Add any configuration you want available only on the server
+  },
+
+  // Enable internationalization
+  // i18n: {
+  //   locales: ['en'],
+  //   defaultLocale: 'en',
   // },
 
-  // Add any necessary rewrites
-  // async rewrites() {
-  //   return [
-  //     // Add your rewrites here
-  //   ];
+  // Configure powered by header
+  // poweredByHeader: false,
+
+  // Experimental features
+  // experimental: {
+  //   optimizeCss: true,
+  //   scrollRestoration: true,
   // },
+
+  // Configure asset prefix for CDN support (uncomment if needed)
+  // assetPrefix: 'https://cdn.yourdomain.com',
 };
 
 export default nextConfig;

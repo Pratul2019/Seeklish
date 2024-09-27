@@ -85,7 +85,7 @@ const Like: React.FC<LikeProps> = ({ id, likes, model }) => {
       {isOpen && (
         <Modal title="Let's Get Started" setIsOpen={setIsOpen}>
           <p className="mb-4 text-center">
-          Can&apos;t comment without signing in!
+          Can&apos;t react without signing in!
           </p>
           <Link href="/signin" passHref>
             <button
