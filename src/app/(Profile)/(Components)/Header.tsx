@@ -11,6 +11,8 @@ import Link from "next/link";
 import EditProfileModal from "./EditProfileModal";
 import AudienceModal from "./Audience";
 import ConnectionsModal from "./Connection";
+import { TiThMenu } from "react-icons/ti";
+import { MdOutlineAddPhotoAlternate } from "react-icons/md";
 
 interface ProfileHeaderProps {
   user: User;
@@ -32,7 +34,9 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ user, currentUser }) => {
   useEffect(() => {
     setIsExplorer(!!user?.audience?.[currentUser]);
     setAudienceCount(user?.audience ? Object.keys(user.audience).length : 0);
-    setConnectionCount(user?.connections ? Object.keys(user.connections).length : 0);
+    setConnectionCount(
+      user?.connections ? Object.keys(user.connections).length : 0
+    );
   }, [user, currentUser]);
 
   const handleDelete = async () => {
@@ -94,28 +98,28 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ user, currentUser }) => {
   return (
     <div className="container min-w-full p-4 bg-header rounded-3xl">
       <div className="flex justify-center p-2 gap-6 items-center mb-4">
-      <div
-      className="relative"
-      onMouseEnter={() => setHomeHover(true)}
-      onMouseLeave={() => setHomeHover(false)}
-    >
-      <Link href="/">
-        <FaHome
-          size={30}
-          className="hover:text-teal-300 transition-colors duration-300"
-        />
-      </Link>
-      {IsHomeHover && (
-        <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 border-teal-500 border bg-header p-2 rounded-3xl shadow-md text-xs whitespace-nowrap">
-          Back to Home
+        <div
+          className="relative"
+          onMouseEnter={() => setHomeHover(true)}
+          onMouseLeave={() => setHomeHover(false)}
+        >
+          <Link href="/">
+            <FaHome
+              size={30}
+              className="hover:text-teal-300 transition-colors duration-300"
+            />
+          </Link>
+          {IsHomeHover && (
+            <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 border-teal-500 border bg-header p-2 rounded-3xl shadow-md text-xs whitespace-nowrap">
+              Back to Home
+            </div>
+          )}
         </div>
-      )}
-    </div>
       </div>
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
         <div className="flex items-center gap-4">
           {currentUser === user.username && (
-            <FaUserEdit
+            <TiThMenu
               size={25}
               onClick={() => setIsOptionsModalOpen(true)}
               className="cursor-pointer hover:text-teal-500"
@@ -170,23 +174,30 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ user, currentUser }) => {
 
       {isOptionsModalOpen && currentUser === user.username && (
         <Modal title="Profile Options" setIsOpen={setIsOptionsModalOpen}>
-          <div className="flex p-2 items-center justify-center gap-6">
+          <div className="p-2 text-sm grid space-y-6">
             <button
               onClick={() => {
                 setIsOptionsModalOpen(false);
                 setIsEditProfileModalOpen(true);
               }}
-              className="flex items-center gap-2 bg-teal-800 text-sm w-fit hover:bg-teal-500 cursor-pointer p-3 rounded-2xl"
+              className="flex items-center gap-2 bg-teal-600 justify-center hover:bg-teal-500 cursor-pointer p-3 rounded-2xl w-48 mx-auto"
             >
               <FaUserEdit size={26} />
               <span>Edit Profile</span>
             </button>
+            <Link
+              href="/Upload"
+              className="flex items-center gap-2 bg-teal-600 justify-center hover:bg-teal-500 cursor-pointer p-3 rounded-2xl w-48 mx-auto"
+            >
+              <MdOutlineAddPhotoAlternate size={26} />
+              <span>Share</span>
+            </Link>
             <button
               onClick={() => {
                 setIsOptionsModalOpen(false);
                 setShowDeleteModal(true);
               }}
-              className="flex items-center gap-2 bg-teal-800 text-sm w-fit hover:bg-teal-500 cursor-pointer p-3 rounded-2xl"
+              className="flex items-center gap-2 bg-teal-600 justify-center hover:bg-teal-500 cursor-pointer p-3 rounded-2xl w-48 mx-auto"
             >
               <RiDeleteBinLine size={25} />
               <span>Delete Account</span>
@@ -213,10 +224,12 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ user, currentUser }) => {
 
       {showAudienceModal && (
         <AudienceModal
-          audience={Object.entries(user?.audience || {}).map(([username, data]) => ({
-            username,
-            ...data,
-          }))}
+          audience={Object.entries(user?.audience || {}).map(
+            ([username, data]) => ({
+              username,
+              ...data,
+            })
+          )}
           onClose={() => setShowAudienceModal(false)}
           // currentuser={user.username}
         />

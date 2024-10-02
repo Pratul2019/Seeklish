@@ -44,7 +44,7 @@ export default function Tabs({
           }`}
           onClick={() => handleTabChange("discover")}
         >
-          <SiWpexplorer size={30}  className="cursor-pointer"/>
+          <SiWpexplorer size={30}  className="cursor-pointer hover:text-teal-500"/>
           <span className="text-gray-400">{profileCounts.discoverCount}</span>
         </div>
         <div
@@ -53,7 +53,7 @@ export default function Tabs({
           }`}
           onClick={() => handleTabChange("rental")}
         >
-          <HiHomeModern size={30}  className="cursor-pointer"/>
+          <HiHomeModern size={30}  className="cursor-pointer hover:text-teal-500"/>
           <span className=" text-gray-400">{profileCounts.rentalCount}</span>
         </div>
         <div
@@ -62,7 +62,7 @@ export default function Tabs({
           }`}
           onClick={() => handleTabChange("application")}
         >
-          <MdAppShortcut size={30} className="cursor-pointer"/>
+          <MdAppShortcut size={30} className="cursor-pointer hover:text-teal-500"/>
           <span className="text-gray-400">{profileCounts.applicationCount}</span>
         </div>
       </div>
