@@ -1,5 +1,6 @@
 import React from "react";
 import { StaticImageData } from "next/image";
+import Link from "next/link";
 
 interface CardProps {
   icon: JSX.Element;
@@ -36,12 +37,12 @@ const HomeCard: React.FC<CardProps> = ({
           {icon}
           <h2 className="">{name}</h2>
         </div>
-        <a
+        <Link
           href={link}
           className="hover:bg-teal-400 bg-teal-800 rounded-xl p-2 px-6"
         >
           Explore
-        </a>
+        </Link>
       </div>
     </div>
   );
