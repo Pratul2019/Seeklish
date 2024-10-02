@@ -8,6 +8,9 @@ import { MdAppShortcut } from "react-icons/md";
 import { SiWpexplorer } from "react-icons/si";
 import Uploadfunction from "../../public/Uploadfunction.jpg";
 import LoggingButton from "@/Components/Comp_Indv/LoggingButton";
+import Application from "../../public/Application.jpg";
+import globe from "../../public/globe.jpg";
+import rentals from "../../public/rentals.jpg";
 import Footer from "./(Homepage)/(Components)/Footer";
 
 const Cookies = Cookie({
@@ -56,7 +59,7 @@ export default async function Home() {
           name="Local Insights"
           description="Discover hidden gems and popular spots in your new city, curated by locals"
           link="/discover"
-          image="/globe.jpg"
+          image={globe}
         />
         <div>
           <HomeCard
@@ -64,7 +67,7 @@ export default async function Home() {
             name="Essential Apps"
             description="Get a curated list of must-have apps used by locals for seamless city living."
             link="/application"
-            image="/Application.jpg"
+            image={Application}
           />
         </div>
         <div>
@@ -73,7 +76,7 @@ export default async function Home() {
             name="Housing Solutions"
             description="Find the perfect home with our community-driven rental listings and insights."
             link="/rental"
-            image="/rentals.jpg"
+            image={rentals}
           />
         </div>
       </div>

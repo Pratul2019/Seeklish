@@ -1,11 +1,12 @@
 import React from "react";
+import { StaticImageData } from "next/image";
 
 interface CardProps {
   icon: JSX.Element;
   name: string;
   description: string;
   link: string;
-  image: string;
+  image: string | StaticImageData;
 }
 
 const HomeCard: React.FC<CardProps> = ({
@@ -20,7 +21,8 @@ const HomeCard: React.FC<CardProps> = ({
       <div
         className="absolute inset-0 z-0 "
         style={{
-          backgroundImage: `url(${image})`,
+          backgroundImage:
+            typeof image === "string" ? `url(${image})` : `url(${image.src})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           opacity: 0.4,
