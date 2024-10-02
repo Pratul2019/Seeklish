@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { HiHomeModern } from "react-icons/hi2";
 import { MdAppShortcut } from "react-icons/md";
 import { SiWpexplorer } from "react-icons/si";
-import Uploadfunction from "../../public/Uploadfunction.jpeg";
+import Uploadfunction from "../../public/Uploadfunction.jpg";
 import LoggingButton from "@/Components/Comp_Indv/LoggingButton";
 import Footer from "./(Homepage)/(Components)/Footer";
 
@@ -56,7 +56,7 @@ export default async function Home() {
           name="Local Insights"
           description="Discover hidden gems and popular spots in your new city, curated by locals"
           link="/discover"
-          image="/globe.jpeg"
+          image="/globe.jpg"
         />
         <div>
           <HomeCard
@@ -73,7 +73,7 @@ export default async function Home() {
             name="Housing Solutions"
             description="Find the perfect home with our community-driven rental listings and insights."
             link="/rental"
-            image="/rentals.jpeg"
+            image="/rentals.jpg"
           />
         </div>
       </div>

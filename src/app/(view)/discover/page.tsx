@@ -2,8 +2,7 @@ import type { Discover } from "@/Components/types";
 import axios from 'axios';
 import Discoverui from "./DiscoverUi";
 
-
-const Discover = async () => {
+async function Discover() {
   try {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/Fetch/Discoverfetch`);
     return (
@@ -19,6 +18,6 @@ const Discover = async () => {
       <div>Error: {error instanceof Error ? error.message : String(error)}</div>
     );
   }
-};
+}
 
 export default Discover;

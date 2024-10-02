@@ -2,8 +2,7 @@ import type { Rental } from "@/Components/types";
 import axios from 'axios';
 import Rentalui from "./RentalUi";
 
-const Rental = async () => {
-
+async function Rental() {
   try {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/Fetch/Rentalfetch`);
     return (
@@ -19,6 +18,6 @@ const Rental = async () => {
       <div>Error: {error instanceof Error ? error.message : String(error)}</div>
     );
   }
-};
+}
 
 export default Rental;

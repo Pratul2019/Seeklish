@@ -2,8 +2,7 @@ import type { App } from "@/Components/types";
 import axios from 'axios';
 import Appui from "./AppUi";
 
-
-const App = async () => {
+async function App() {
   try {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/Fetch/Appfetch`);
     return (
@@ -19,6 +18,6 @@ const App = async () => {
       <div>Error: {error instanceof Error ? error.message : String(error)}</div>
     );
   }
-};
+}
 
 export default App;
