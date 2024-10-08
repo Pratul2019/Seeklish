@@ -154,6 +154,7 @@ const Header: React.FC = () => {
                 alt={session.user.name || "User avatar"}
                 width={1000}
                 height={1000}
+                priority={true}
               />
               <span className="hidden md:inline ml-2 hover:text-teal-500">
                 {session.user.name}

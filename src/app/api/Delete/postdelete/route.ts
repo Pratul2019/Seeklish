@@ -11,13 +11,13 @@ const deleteS3Object = async (s3Client: S3Client, imageUrl: string) => {
   if (imageUrl) {
     const key = imageUrl.split("https://seeklish.s3.amazonaws.com/").pop();
     if (key) {
-      // //console.log(`Deleting image: ${key}`); // Debug log: Image deletion started
+      console.log(`Deleting image: ${key}`); // Debug log: Image deletion started
       const deleteCommand = new DeleteObjectCommand({
         Bucket: "seeklish",
         Key: key,
       });
       await s3Client.send(deleteCommand);
-      // //console.log(`Deleted image: ${key}`); // Debug log: Image deletion successful
+      console.log(`Deleted image: ${key}`); // Debug log: Image deletion successful
     }
   }
 };
@@ -25,10 +25,10 @@ const deleteS3Object = async (s3Client: S3Client, imageUrl: string) => {
 export async function POST(request: NextRequest) {
   try {
     const { postid, model } = await request.json();
-    // //console.log(`Received request to delete ${model} post ${postid}`); // Debug log: Request received
+    console.log(`Received request to delete ${model} post ${postid}`); // Debug log: Request received
 
     await dbConnect();
-    // //console.log("Database connected"); // Debug log: Database connection established
+    console.log("Database connected"); // Debug log: Database connection established
 
     const s3Client = new S3Client({
       region: process.env.NEXT_PUBLIC_AWS_S3_REGION!,
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // //console.log("S3 client initialized"); // Debug log: S3 client initialized
+    console.log("S3 client initialized"); // Debug log: S3 client initialized
 
     let mainPost;
     if (model === "Rental") {
@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
     }
 
     if (mainPost) {
-      // //console.log(`Found main ${model} post: ${mainPost._id}`); // Debug log: Main post found
+      console.log(`Found main ${model} post: ${mainPost._id}`); // Debug log: Main post found
 
       // Delete connected posts and their images
       if (Array.isArray(mainPost.connectionpost)) {
@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
       } else if (model === "App") {
         await ApplicationModel.findByIdAndDelete(postid);
       }
-      // //console.log(`Deleted ${model} post: ${postid}`); // Debug log: Main post deleted
+    console.log(`Deleted ${model} post: ${postid}`); // Debug log: Main post deleted
 
       return NextResponse.json(
         { message: `${model} deleted successfully` },
