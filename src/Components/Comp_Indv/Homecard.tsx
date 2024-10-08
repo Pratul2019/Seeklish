@@ -37,12 +37,11 @@ const HomeCard: React.FC<CardProps> = ({
           {icon}
           <h2 className="">{name}</h2>
         </div>
-        <Link
-          href={link}
-          className="hover:bg-teal-400 bg-teal-800 rounded-xl p-2 px-6"
-        >
-          Explore
-        </Link>
+        <div className="hover:bg-teal-400 bg-teal-800 rounded-xl p-2 px-6">
+          <Link href={link} legacyBehavior>
+            <a>Explore</a>
+          </Link>
+        </div>
       </div>
     </div>
   );
