@@ -88,7 +88,7 @@ const CommentModal: React.FC<CommentModalProps> = ({
             sortedComments.map((comment) => (
               <div key={comment._id} className="flex justify-between p-2">
                 <div className="flex items-center gap-2">
-                  <Link href={`/Userprofile/${comment.username}`}>
+                  <Link href={`/${comment.username}`}>
                     <Image
                       className="h-9 w-9 rounded-full"
                       src={comment.image}

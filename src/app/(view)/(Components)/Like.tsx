@@ -24,9 +24,7 @@ const Like: React.FC<LikeProps> = ({ id, likes, model }) => {
       const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/Fetch/Like`, {
         postid: id,
         model,
-        headers: {
-          Authorization: `Bearer ${session?.sessionToken}`,
-        },
+        
       });
       setLikeData(res.data.data);
     } catch (error) {
