@@ -6,7 +6,7 @@ const nextConfig = {
       { protocol: "https", hostname: "lh3.googleusercontent.com" },
       { protocol: "https", hostname: "seeklish.s3.amazonaws.com" },
     ],
-    minimumCacheTTL: 60,
+    
   },
 
   // Security headers
