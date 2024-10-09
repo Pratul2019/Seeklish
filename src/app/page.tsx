@@ -8,9 +8,9 @@ import { MdAppShortcut } from "react-icons/md";
 import { SiWpexplorer } from "react-icons/si";
 import Uploadfunction from "../../public/Uploadfunction.jpg";
 import LoggingButton from "@/Components/Comp_Indv/LoggingButton";
-import Application from "../../public/Application.jpg";
-import globe from "../../public/globe.jpg";
-import rentals from "../../public/rentals.jpg";
+import Application from "../../public/Application.jpeg";
+import globe from "../../public/globe.jpeg";
+import rentals from "../../public/rentals.jpeg";
 import Footer from "./(Homepage)/(Components)/Footer";
 
 const Cookies = Cookie({
