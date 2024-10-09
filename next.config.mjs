@@ -29,10 +29,6 @@ const nextConfig = {
             value: "1; mode=block",
           },
           {
-            key: "Access-Control-Allow-Methods",
-            value: "GET,OPTIONS,PATCH,DELETE,POST,PUT",
-          },
-          {
             key: "X-Frame-Options",
             value: "SAMEORIGIN",
           },
