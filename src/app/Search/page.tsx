@@ -60,7 +60,11 @@ export default function Search() {
       }
     } catch (error) {
       console.error(`Error fetching ${type} results:`, error);
-      setError(`Error fetching ${type} results. Please try again.`);
+      if (axios.isAxiosError(error)) {
+        setError(`Error fetching ${type} results: ${error.response?.data?.error || error.message}`);
+      } else {
+        setError(`An unexpected error occurred while fetching ${type} results.`);
+      }
     } finally {
       setIsLoading(false);
     }
