@@ -1,5 +1,5 @@
 import React from "react";
-import { StaticImageData } from "next/image";
+import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 
 interface CardProps {
@@ -19,15 +19,13 @@ const HomeCard: React.FC<CardProps> = ({
 }) => {
   return (
     <div className="p-2 rounded-3xl max-w-lg flex flex-col justify-between overflow-hidden min-h-72 relative">
-      <div
-        className="absolute inset-0 z-0 "
-        style={{
-          backgroundImage:
-            typeof image === "string" ? `url(${image})` : `url(${image.src})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          opacity: 0.4,
-        }}
+      <Image
+        src={typeof image === "string" ? image : image.src}
+        alt=''
+        layout="fill"
+        objectFit="cover"
+        objectPosition="center"
+        className="absolute inset-0 z-0 opacity-40"
       />
       <div className="absolute inset-0 bg-black bg-opacity-40" />
       {/* Overlay for better text visibility */}
