@@ -6,7 +6,7 @@ const nextConfig = {
       { protocol: "https", hostname: "lh3.googleusercontent.com" },
       { protocol: "https", hostname: "seeklish.s3.amazonaws.com" },
     ],
-    
+    minimumCacheTTL: 60,
   },
 
   // Security headers
@@ -18,7 +18,7 @@ const nextConfig = {
           {
             key: "Content-Security-Policy",
             value:
-              "default-src 'self'; script-src 'self'  https://maps.googleapis.com; style-src 'self'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://seeklish.com https://maps.googleapis.com http://localhost:3000",
+              "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://maps.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://seeklish.com https://maps.googleapis.com http://localhost:3000",
           },
           {
             key: "Strict-Transport-Security",
@@ -69,8 +69,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
 
-  // Enable trailing slashes for consistent routing
-  trailingSlash: true,
+
 };
 
 export default nextConfig;
