@@ -7,7 +7,7 @@ interface CardProps {
   name: string;
   description: string;
   link: string;
-  image: string | StaticImageData;
+  image: StaticImageData;
 }
 
 const HomeCard: React.FC<CardProps> = ({
@@ -20,7 +20,7 @@ const HomeCard: React.FC<CardProps> = ({
   return (
     <div className="p-2 rounded-3xl max-w-lg flex flex-col justify-between overflow-hidden min-h-72 relative">
       <Image
-        src={typeof image === "string" ? image : image.src}
+        src={image}
         alt=''
         layout="fill"
         objectFit="cover"
