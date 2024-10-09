@@ -3,12 +3,24 @@
 import { signIn, signOut } from "@/auth";
 import { revalidatePath } from "next/cache";
 
-export const login = async (provider: string) => {
+export async function login(provider: string) {
+  try {
     await signIn(provider, { redirectTo: "/" });
+  } catch (error) {
+    console.error("Login error:", error);
+    throw error; // Re-throw to handle in the client if needed
+  } finally {
     revalidatePath("/");
-  };
+  }
+}
 
-  export const logout = async () => {
+export async function logout() {
+  try {
     await signOut({ redirectTo: "/" });
+  } catch (error) {
+    console.error("Logout error:", error);
+    throw error; // Re-throw to handle in the client if needed
+  } finally {
     revalidatePath("/");
-  };
+  }
+}

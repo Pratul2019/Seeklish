@@ -18,7 +18,7 @@ const nextConfig = {
           {
             key: "Content-Security-Policy",
             value:
-              "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://maps.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://seeklish.com https://maps.googleapis.com",
+              "default-src 'self'; script-src 'self'  https://maps.googleapis.com; style-src 'self'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://seeklish.com https://maps.googleapis.com http://localhost:3000",
           },
           {
             key: "Strict-Transport-Security",
@@ -27,6 +27,14 @@ const nextConfig = {
           {
             key: "X-XSS-Protection",
             value: "1; mode=block",
+          },
+          {
+            key: "Access-Control-Allow-Methods",
+            value: "GET,OPTIONS,PATCH,DELETE,POST,PUT",
+          },
+          {
+            key: "Access-Control-Allow-Headers",
+            value: "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
           },
           {
             key: "X-Frame-Options",
@@ -38,7 +46,7 @@ const nextConfig = {
           },
           {
             key: "Referrer-Policy",
-            value: "origin-when-cross-origin",
+            value: "strict-origin-when-cross-origin",
           },
           {
             key: "Access-Control-Allow-Origin",
