@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Roboto } from "next/font/google";
-import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
+import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   title: {
@@ -23,13 +23,14 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
+
   return (
-    <SessionProvider session={session}>
-      <html lang="en">
-        <body className={Baskerv.className}>
+    <html lang="en">
+      <body className={Baskerv.className}>
+        <SessionProvider session={session}>
           <main>{children}</main>
-        </body>
-      </html>
-    </SessionProvider>
+        </SessionProvider>
+      </body>
+    </html>
   );
 }

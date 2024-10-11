@@ -21,10 +21,12 @@ const HomeCard: React.FC<CardProps> = ({
     <div className="p-2 rounded-3xl max-w-lg flex flex-col justify-between overflow-hidden min-h-72 relative">
       <Image
         src={image}
-        alt=''
-        layout="fill"
-        objectFit="cover"
-        objectPosition="center"
+        alt=""
+        fill
+        style={{
+          objectFit: "cover",
+          objectPosition: "center",
+        }}
         className="absolute inset-0 z-0 opacity-40"
       />
       <div className="absolute inset-0 bg-black bg-opacity-40" />

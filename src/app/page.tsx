@@ -61,15 +61,7 @@ export default async function Home() {
           link="/discover"
           image={globe}
         />
-        <div>
-          <HomeCard
-            icon={<MdAppShortcut size={30} className="text-teal-400" />}
-            name="Essential Apps"
-            description="Get a curated list of must-have apps used by locals for seamless city living."
-            link="/application"
-            image={Application}
-          />
-        </div>
+        
         <div>
           <HomeCard
             icon={<HiHomeModern size={30} className="text-teal-400" />}
@@ -77,6 +69,15 @@ export default async function Home() {
             description="Find the perfect home with our community-driven rental listings and insights."
             link="/rental"
             image={rentals}
+          />
+        </div>
+        <div>
+          <HomeCard
+            icon={<MdAppShortcut size={30} className="text-teal-400" />}
+            name="Essential Apps"
+            description="Get a curated list of must-have apps used by locals for seamless city living."
+            link="/application"
+            image={Application}
           />
         </div>
       </div>

@@ -6,7 +6,7 @@ const nextConfig = {
       { protocol: "https", hostname: "lh3.googleusercontent.com" },
       { protocol: "https", hostname: "seeklish.s3.amazonaws.com" },
     ],
-    minimumCacheTTL: 60,
+    
   },
 
   // Security headers
@@ -44,6 +44,7 @@ const nextConfig = {
             key: "Access-Control-Allow-Origin",
             value: process.env.ALLOWED_ORIGIN || "https://seeklish.com",
           },
+          
         ],
       },
     ];
@@ -68,7 +69,6 @@ const nextConfig = {
   // Optimize for production
   reactStrictMode: true,
   swcMinify: true,
-
 
 };
 

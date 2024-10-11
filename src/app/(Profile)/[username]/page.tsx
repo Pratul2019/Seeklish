@@ -16,7 +16,7 @@ interface ProfileCounts {
   applicationCount: number;
 }
 
-const Username = async ({ params }: { params: Params }) => {
+export default async function Username({ params }: { params: Params }) {
   try {
     const session = await auth();
     const { username } = params;
@@ -64,9 +64,10 @@ const Username = async ({ params }: { params: Params }) => {
       return redirect("/");
     }
   } catch (error) {
-    
-    return redirect("/");
+    console.error("Error in Username component:", error);
+    return (
+      <div>Error: {error instanceof Error ? error.message : String(error)}</div>
+    );
   }
-};
+}
 
-export default Username;

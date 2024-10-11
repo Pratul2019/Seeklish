@@ -152,13 +152,13 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { message: "Connection rental deleted successfully" },
+      { message: "Connection deleted successfully" },
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error deleting connection rental:", error);
+    console.error("Error deleting connection :", error);
     return NextResponse.json(
-      { message: "Error deleting connection rental" },
+      { message: "Error deleting connection " },
       { status: 500 }
     );
   }

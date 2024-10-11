@@ -1,23 +1,39 @@
 import type { Discover } from "@/Components/types";
 import axios from 'axios';
+import { Fragment } from "react";
 import Discoverui from "./DiscoverUi";
 
-async function Discover() {
+async function getDiscovers(): Promise<Discover[]> {
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/Fetch/Discoverfetch`);
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:p-4 md:mx-4  mt-20 md:mt-0">
-        {response.data.map((discover: Discover) => (
-          <Discoverui key={discover._id} discover={discover} />
-        ))}
-      </div>
-    );
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/Fetch/Discoverfetch`, {
+      headers: {
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+      },
+    });
+
+    if (!response.data || !Array.isArray(response.data)) {
+      throw new Error('Failed to fetch data or data is not an array');
+    }
+
+    return response.data;
   } catch (error) {
-    console.error("Error fetching Data:", error);
-    return (
-      <div>Error: {error instanceof Error ? error.message : String(error)}</div>
-    );
+    console.error("Error fetching discovers:", error);
+    return [];
   }
 }
 
-export default Discover;
+export default async function Discover() {
+  const discovers = await getDiscovers();
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:p-4 md:mx-4 mt-20 md:mt-0">
+      {discovers.map((discover: Discover) => (
+        <Fragment key={discover._id}>
+          <Discoverui discover={discover} />
+        </Fragment>
+      ))}
+    </div>
+  );
+}
