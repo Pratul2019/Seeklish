@@ -20,66 +20,39 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   callbacks: {
     async signIn({ profile, user, account }) {
-      if (
-        user &&
-        profile &&
-        account &&
-        (account.provider === "google" ||
-          account.provider === "facebook" ||
-          account.provider === "github")
-      ) {
+      if (user && profile && account && ["google", "facebook", "github"].includes(account.provider)) {
         const { name, email, image } = user;
         const uid = profile.id || profile.sub;
-
+    
         try {
-          const res = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/Login/User`,
-            {
-              method: "POST",
-              headers: {
-                "content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                name,
-                email,
-                uid,
-                image,
-              }),
-            }
-          );
-
+          const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Login/User`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, uid, image }),
+          });
+    
           if (!res.ok) {
-            throw new Error(`HTTP error! status: ${res.status}`);
+            console.error(`API error: ${res.status} ${res.statusText}`);
+            return false; // Deny sign-in on API error
           }
-
+    
           const data = await res.json();
-          const isDelete = data.isdeleteuserrequest;
-          const deleteUsername = data.username;
-
-          if (isDelete == true) {
-            // Redirect to /RestoreUser if isdeleteuserrequest is true
-            // Include the username as a query parameter
-            return `${
-              process.env.NEXT_PUBLIC_API_URL
-            }/RestoreUser/${encodeURIComponent(deleteUsername)}`;
-          } else {
-            console.log("Not deleting user, proceeding with sign-in...");
+          
+          if (data.isdeleteuserrequest) {
+            return `/RestoreUser/${encodeURIComponent(data.username)}`;
           }
-
+    
           user.username = data.username;
-          user.name = data.name; // Update the session with the name
+          user.name = data.name;
           user.image = data.image;
-
+    
           return true;
         } catch (error) {
           console.error("Error in signIn callback:", error);
-          console.log(error);
+          return false; // Deny sign-in on error
         }
-
-        return true; // Allow sign-in
-      } else {
-        return false; // Deny sign-in
       }
+      return false; // Deny sign-in for unsupported providers
     },
 
     async jwt({ token, user, trigger, session }) {
