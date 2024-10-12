@@ -8,7 +8,7 @@ import {
 
 const Footer = () => {
   return (
-    <div className="bg-gradient-to-t from-teal-800 to-header">
+    <div className="border-t-2 border-teal-800">
       <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <div className="flex flex-wrap justify-around md:flex-nowrap gap-4">
           <div className="items-center flex flex-col text-sm md:text-left w-full md:w-auto">

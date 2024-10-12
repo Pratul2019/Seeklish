@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { HiHomeModern } from "react-icons/hi2";
 import { MdAppShortcut } from "react-icons/md";
 import Link from "next/link";
@@ -22,8 +22,7 @@ const buttonConfig = {
 
 const Header: React.FC = () => {
   const [hoverStates, setHoverStates] = useState<HoverStates>({});
-
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -75,6 +74,59 @@ const Header: React.FC = () => {
     </div>
   ), [activeButton, handleButtonClick, handleMouseEnter, handleMouseLeave, hoverStates, renderIcon]);
 
+  const renderUserSection = useMemo(() => {
+    if (status === "loading") {
+      return <div>Loading...</div>;
+    }
+
+    if (session?.user?.username) {
+      return (
+        <div
+          className="flex items-center cursor-pointer justify-center"
+          onMouseEnter={() => handleMouseEnter("avatar")}
+          onMouseLeave={() => handleMouseLeave("avatar")}
+        >
+          <Link href={`/${session.user.username}`} className="flex items-center">
+            <Image
+              className="rounded-xl w-9 h-9"
+              src={session.user.image || ""}
+              alt=""
+              width={36}
+              height={36}
+              priority
+            />
+            <span className="hidden md:inline ml-2 hover:text-teal-500">
+              {session.user.name}
+            </span>
+          </Link>
+          {hoverStates.avatar && (
+            <div className="absolute -bottom-8 border-teal-500 border bg-header p-2 rounded-3xl shadow-md text-xs whitespace-nowrap md:hidden">
+              {session.user.name}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    return (
+      <div
+        className="flex items-center cursor-pointer justify-center hover:text-teal-500"
+        onMouseEnter={() => handleMouseEnter("avatar")}
+        onMouseLeave={() => handleMouseLeave("avatar")}
+      >
+        <Link href="/signin" className="flex items-center">
+          <RxAvatar size={32} />
+          <span className="hidden md:inline ml-2">Sign In</span>
+        </Link>
+        {hoverStates.avatar && (
+          <div className="absolute -bottom-8 border-teal-500 border bg-header p-2 rounded-3xl shadow-md text-xs whitespace-nowrap md:hidden">
+            Get Started
+          </div>
+        )}
+      </div>
+    );
+  }, [session, status, handleMouseEnter, handleMouseLeave, hoverStates.avatar]);
+
   return (
     <div className="flex p-5 backdrop-filter backdrop-blur-lg border-b-2 border-gray-700 gap-6 md:gap-12 md:justify-center justify-between z-50">
       <div
@@ -96,48 +148,7 @@ const Header: React.FC = () => {
       {Object.keys(buttonConfig).map(renderButton)}
 
       <div className="flex items-center gap-1 relative">
-        {session?.user?.username ? (
-          <div
-            className="flex items-center cursor-pointer justify-center"
-            onMouseEnter={() => handleMouseEnter("avatar")}
-            onMouseLeave={() => handleMouseLeave("avatar")}
-          >
-            <Link href={`/${session.user.username}`} className="flex items-center">
-              <Image
-                className="rounded-xl w-9 h-9"
-                src={session.user.image || ""}
-                alt=""
-                width={1000}
-                height={1000}
-                priority
-              />
-              <span className="hidden md:inline ml-2 hover:text-teal-500">
-                {session.user.name}
-              </span>
-            </Link>
-            {hoverStates.avatar && (
-              <div className="absolute -bottom-8 border-teal-500 border bg-header p-2 rounded-3xl shadow-md text-xs whitespace-nowrap md:hidden">
-                {session.user.name}
-              </div>
-            )}
-          </div>
-        ) : (
-          <div
-            className="flex items-center cursor-pointer justify-center hover:text-teal-500"
-            onMouseEnter={() => handleMouseEnter("avatar")}
-            onMouseLeave={() => handleMouseLeave("avatar")}
-          >
-            <Link href="/signin" className="flex items-center">
-              <RxAvatar size={32} />
-              <span className="hidden md:inline ml-2">Sign In</span>
-            </Link>
-            {hoverStates.avatar && (
-              <div className="absolute -bottom-8 border-teal-500 border bg-header p-2 rounded-3xl shadow-md text-xs whitespace-nowrap md:hidden">
-                Get Started
-              </div>
-            )}
-          </div>
-        )}
+        {renderUserSection}
         <div className="mt-2">
           <Menu />
         </div>
@@ -146,4 +157,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export default React.memo(Header);

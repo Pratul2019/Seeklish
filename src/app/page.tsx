@@ -26,34 +26,35 @@ export default async function Home() {
   }
 
   return (
-    <main className="w-full h-full min-h-screen flex flex-col gap-24 bg-header">
+    <main className="w-full h-full min-h-screen flex flex-col gap-24 bg-light">
       <div className={`${Cookies.className} flex justify-center`}>
         <h1 className="p-2  text-6xl bg-clip-text text-transparent bg-gradient-to-r from-teal-500 to-gray-700">
           Seeklish
         </h1>
       </div>
-      <div
-        className="flex flex-col gap-6 items-center justify-center py-24 bg-gradient-to-t from-teal-800 to-header"
-      >
-        <h1 className="text-3xl italic text-center">
-          Guide to Seamless Transitions
-        </h1>
-        <p className="text-2xl text-center">
-          Empowering Explorers with local knowledge for a smooth experience.
-        </p>
-        <div className=" font-thin flex flex-col text-center">
-          <p>
-            Help us build a stronger community by sharing your
-            neighbourhood&apos;s story!
-          </p>
-          <p>
-            We&apos;ve started with Montreal, now it&apos;s your turn -
-            contribute your local knowledge and let&apos;s expand our reach
-            together!
-          </p>
+      <div className="flex flex-col items-center justify-center  p-4">
+        <div className="max-w-4xl mx-auto text-center animate-fadeIn">
+          <h1 className="text-xl md:text-2xl font-bold mb-6 ">
+            Your One-Stop Guide to Effortless Travel
+          </h1>
+
+          <div className="shadow-teal-800 flex flex-col gap-4 text-base md:text-lg backdrop-blur-lg rounded-2xl p-6 shadow-xl">
+            <p>
+              Empowering Explorers / Curious Traveler with Insights for a
+              Seamless Travel Experience.
+            </p>
+            <p>
+              Help us build a stronger community by sharing your neighbourhood's
+              story!
+            </p>
+            <p>
+              We've started with Montreal, now it's your turn - contribute your
+              local knowledge and let's expand our reach together!
+            </p>
+          </div>
         </div>
       </div>
-      <div className="grid lg:flex gap-4 items-center justify-center  py-24 bg-gradient-to-t from-teal-800 to-header">
+      <div className="grid lg:flex gap-4 items-center justify-center py-20 shadow-xl shadow-teal-800">
         <HomeCard
           icon={<SiWpexplorer size={30} className="text-teal-400" />}
           name="Local Insights"
@@ -61,7 +62,7 @@ export default async function Home() {
           link="/discover"
           image={globe}
         />
-        
+
         <div>
           <HomeCard
             icon={<HiHomeModern size={30} className="text-teal-400" />}
@@ -81,7 +82,7 @@ export default async function Home() {
           />
         </div>
       </div>
-      <div className=" bg-gradient-to-t from-teal-800 to-header">
+      <div className=" shadow-xl shadow-teal-800">
         <div className="w-full gap-10  items-center justify-center py-24 grid md:flex">
           <Image
             alt=""
@@ -98,9 +99,7 @@ export default async function Home() {
           </div>
         </div>
 
-        <div>
-
-        </div>
+        <div></div>
       </div>
       <div>
         <Footer />
