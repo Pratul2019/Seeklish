@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useCallback, useEffect } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { HiHomeModern } from "react-icons/hi2";
 import { MdAppShortcut } from "react-icons/md";
 import Link from "next/link";

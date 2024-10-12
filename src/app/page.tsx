@@ -44,12 +44,12 @@ export default async function Home() {
               Seamless Travel Experience.
             </p>
             <p>
-              Help us build a stronger community by sharing your neighbourhood's
+              Help us build a stronger community by sharing your neighbourhood&apos;s
               story!
             </p>
             <p>
-              We've started with Montreal, now it's your turn - contribute your
-              local knowledge and let's expand our reach together!
+              We&apos;ve started with Montreal, now it&apos;s your turn - contribute your
+              local knowledge and let&apos;s expand our reach together!
             </p>
           </div>
         </div>
