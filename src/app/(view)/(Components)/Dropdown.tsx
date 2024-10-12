@@ -1,10 +1,8 @@
-"use client";
-
-import DeleteModal from "@/Components/Comp_Indv/Deletemodal";
-import Share from "@/Components/Comp_Indv/Share";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { IoIosArrowDropdown } from "react-icons/io";
 import { IoTrashBinSharp } from "react-icons/io5";
+import DeleteModal from "@/Components/Comp_Indv/Deletemodal";
+import Share from "@/Components/Comp_Indv/Share";
 
 interface DropdownProps {
   postUrl: string;
@@ -21,24 +19,24 @@ const Dropdown: React.FC<DropdownProps> = ({
 }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setShowDropdown(false);
-      }
-    };
-
-    document.addEventListener("click", handleOutsideClick);
-    return () => document.removeEventListener("click", handleOutsideClick);
+  const handleOutsideClick = useCallback((event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setShowDropdown(false);
+    }
   }, []);
 
-  const handleDelete = async () => {
+  useEffect(() => {
+    document.addEventListener("click", handleOutsideClick);
+    return () => document.removeEventListener("click", handleOutsideClick);
+  }, [handleOutsideClick]);
+
+  const handleDelete = useCallback(async () => {
     if (isDeleting) return;
 
     setIsDeleting(true);
@@ -63,13 +61,21 @@ const Dropdown: React.FC<DropdownProps> = ({
     } finally {
       setIsDeleting(false);
     }
-  };
+  }, [isDeleting, postid, model]);
+
+  const toggleDropdown = useCallback(() => {
+    setShowDropdown((prev) => !prev);
+  }, []);
+
+  const openDeleteModal = useCallback(() => {
+    setShowDeleteModal(true);
+  }, []);
 
   return (
     <div ref={dropdownRef} className="relative">
       <button
         className="flex gap-2 hover:text-teal-500"
-        onClick={() => setShowDropdown((prev) => !prev)}
+        onClick={toggleDropdown}
         aria-expanded={showDropdown}
         aria-label="Toggle Dropdown"
       >
@@ -83,7 +89,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           </div>
           {isCurrentUser && (
             <div
-              onClick={() => setShowDeleteModal(true)}
+              onClick={openDeleteModal}
               className="flex gap-2 px-4 py-2 cursor-pointer hover:bg-teal-700 rounded-xl"
             >
               <IoTrashBinSharp size={16} />
@@ -105,4 +111,4 @@ const Dropdown: React.FC<DropdownProps> = ({
   );
 };
 
-export default Dropdown;
+export default React.memo(Dropdown);
