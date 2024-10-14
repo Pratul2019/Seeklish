@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import type { Discover } from "@/Components/types";
 import axios from 'axios';
 import { Fragment } from "react";

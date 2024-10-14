@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import dbConnect from "@/lib/dbConnect";
 import RentalModel from "@/Modals/Rental";
 import { NextResponse } from "next/server";

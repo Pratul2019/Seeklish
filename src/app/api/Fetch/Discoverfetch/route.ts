@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import dbConnect from "@/lib/dbConnect";
 import DiscoverModel from "@/Modals/Discover";
 import { NextResponse } from "next/server";
