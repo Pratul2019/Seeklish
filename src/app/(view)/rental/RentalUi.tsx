@@ -18,7 +18,6 @@ import Dropdown from "../(Components)/Dropdown";
 import Like from "../(Components)/Like";
 import Comments from "../(Comments)/Comments";
 
-
 interface RentaluiProps {
   rental: Rental;
 }
@@ -66,7 +65,10 @@ const Rentalui = ({ rental }: RentaluiProps) => {
     // The actual redirection will be handled by the Link component
   };
 
-  const renderCarouselItem = (item: Rental | Rental['connectionpost'][0], index: number) => {
+  const renderCarouselItem = (
+    item: Rental | Rental["connectionpost"][0],
+    index: number
+  ) => {
     return (
       <div key={index} className="w-full flex-shrink-0 flex flex-col gap-2">
         <div className="relative w-full aspect-video">
@@ -78,18 +80,16 @@ const Rentalui = ({ rental }: RentaluiProps) => {
             height={1000}
             style={{ objectFit: "cover" }}
             priority={true}
-            
           />
         </div>
         <div className="flex items-center justify-between text-sm md:text-base ml-2">
           <div className="flex items-center gap-2">
-          <ConditionalProfilePicture
-                  username={item.username}
-                  image={item.image}
-                  index={index}
-                  
-                  setIsOpen={setIsOpenProfile}
-                />
+            <ConditionalProfilePicture
+              username={item.username}
+              image={item.image}
+              index={index}
+              setIsOpen={setIsOpenProfile}
+            />
             <div className="flex flex-col max-w-xs">
               <div className="text-sm">{item.name}</div>
               <Moment className="text-xs font-extralight text-gray-500" fromNow>
@@ -140,7 +140,7 @@ const Rentalui = ({ rental }: RentaluiProps) => {
             </div>
 
             <div>
-            {rental.place && (
+              {rental.place && (
                 <div className="flex flex-col">
                   <a
                     href={`https://www.google.com/maps?q=${encodeURIComponent(
@@ -150,13 +150,13 @@ const Rentalui = ({ rental }: RentaluiProps) => {
                     rel="noopener noreferrer"
                     className="font-light text-xs"
                   >
-                   {rental.place.substring(0, 50)}..
+                    {rental.place.substring(0, 50)}..
                   </a>
                 </div>
               )}
             </div>
 
-            <div >
+            <div>
               <Dropdown
                 postUrl={postUrl}
                 isCurrentUser={isCurrentUser}
@@ -195,14 +195,16 @@ const Rentalui = ({ rental }: RentaluiProps) => {
       {/* Modal for viewing full caption */}
       {isOpen && (
         <Modal title="Caption" setIsOpen={setIsOpen}>
-          <p className="text-sm text-start">{activeCaption}</p>
+          <p className="text-sm text-start whitespace-pre-wrap">
+            {activeCaption}
+          </p>
         </Modal>
       )}
       {/* Modal for profile */}
       {isOpenProfile && (
         <Modal title="Let's get Started" setIsOpen={setIsOpenProfile}>
           <p className="mb-4 text-center">
-          can&apos;t view profile without signing in!
+            can&apos;t view profile without signing in!
           </p>
           <Link href="/signin" passHref>
             <button

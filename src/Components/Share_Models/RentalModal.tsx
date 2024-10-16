@@ -25,22 +25,23 @@ export default function RentalModal({ rental, onClose }: RentalModalProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isOpenProfile, setIsOpenProfile] = useState(false);
   const pathname = usePathname();
+  const connectionPostLength = rental.connectionpost?.length || 0;
 
   const handleNext = useCallback(() => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % (rental.connectionpost.length + 1));
-  }, [rental.connectionpost.length]);
-
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % (connectionPostLength + 1));
+  }, [connectionPostLength]);
+  
   const handlePrev = useCallback(() => {
     setCurrentIndex((prevIndex) => 
-      (prevIndex - 1 + rental.connectionpost.length + 1) % (rental.connectionpost.length + 1)
+      (prevIndex - 1 + connectionPostLength + 1) % (connectionPostLength + 1)
     );
-  }, [rental.connectionpost.length]);
+  }, [connectionPostLength]);
 
   const carouselItems = Array.isArray(rental.connectionpost)
     ? [rental, ...rental.connectionpost]
     : [rental];
 
-  const showNavigation = Array.isArray(rental.connectionpost) && rental.connectionpost.length > 0;
+    const showNavigation = connectionPostLength > 0;
   const postUrl = `${process.env.NEXT_PUBLIC_API_URL}/rental/${rental._id}?from=link`;
   const isCurrentUser = session?.user.username === rental.username;
 
@@ -82,7 +83,7 @@ export default function RentalModal({ rental, onClose }: RentalModalProps) {
       </div>
       <div className="p-2 rounded-b-xl flex flex-col gap-2">
         <h3 className="text-lg">{item.rentalName}</h3>
-        <p className="text-sm w-auto break-words">{item.caption}</p>
+        <p className="text-sm w-auto break-words text-start whitespace-pre-wrap">{item.caption}</p>
       </div>
     </div>
   ), [ isCurrentUser, rental._id]);

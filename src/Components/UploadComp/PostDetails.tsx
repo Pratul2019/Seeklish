@@ -1,5 +1,4 @@
 "use client"
-
 import React from 'react';
 import { SiNamecheap } from 'react-icons/si';
 import { MdDescription } from 'react-icons/md';
@@ -11,12 +10,7 @@ interface PostDetailsProps {
   setCaption: (caption: string) => void;
 }
 
-const PostDetails = ({
-  postName,
-  setPostName,
-  caption,
-  setCaption
-}: PostDetailsProps) => {
+const PostDetails = ({ postName, setPostName, caption, setCaption }: PostDetailsProps) => {
   return (
     <div className="w-full space-y-4">
       <div className="flex items-center space-x-2">
@@ -36,10 +30,11 @@ const PostDetails = ({
           value={caption}
           onChange={(e) => setCaption(e.target.value)}
           placeholder="Uniqueness?"
-          className="w-full p-2 rounded-3xl h-24 bg-transparent resize-none"
+          className="w-full p-2 rounded-3xl h-24 bg-transparent resize-none whitespace-pre-wrap"
         />
       </div>
-    </div>  
+      
+    </div>
   );
 };
 

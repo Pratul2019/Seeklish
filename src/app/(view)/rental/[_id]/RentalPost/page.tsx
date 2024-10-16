@@ -132,7 +132,7 @@ export default function RentalPost({ rental }: RentalPostProps) {
                     </div>
                     <div className="p-2 rounded-b-xl flex flex-col">
                       <h3 className="text-lg">{item.rentalName}</h3>
-                      <p className="text-sm ">
+                      <p className="text-sm whitespace-pre-wrap text-start">
                         {item.caption}
                       </p>
                     </div>

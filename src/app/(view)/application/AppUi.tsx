@@ -184,7 +184,7 @@ const Appui = ({ app }: AppuiProps) => {
       {/* Modal for viewing full caption */}
       {isOpen && (
         <Modal title="Caption" setIsOpen={setIsOpen}>
-          <p className="text-sm text-start">{activeCaption}</p>
+          <p className="text-sm text-start whitespace-pre-wrap">{activeCaption}</p>
         </Modal>
       )}
       {/* Modal for profile */}

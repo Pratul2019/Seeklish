@@ -134,7 +134,7 @@ export default function DiscoverPost({ discover }: DiscoverPostProps) {
                     </div>
                     <div className="p-2 rounded-b-xl flex flex-col">
                       <h3 className="text-lg">{item.discoverName}</h3>
-                      <p className="text-sm ">{item.caption}</p>
+                      <p className="text-sm whitespace-pre-wrap text-start">{item.caption}</p>
                     </div>
                   </div>
                 ))}

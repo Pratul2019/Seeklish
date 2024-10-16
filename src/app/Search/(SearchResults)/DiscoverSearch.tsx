@@ -57,7 +57,7 @@ const DiscoverSearch = ({ results: initialResults }: DiscoverSearchProps) => {
               className="cursor-pointer"
             >
               <Image
-                className="rounded-xl"
+                className="rounded-xl object-cover h-80 "
                 src={result.discoverImage}
                 alt=""
                 width={1000}

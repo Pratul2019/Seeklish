@@ -29,7 +29,6 @@ const Discoverui = ({ discover }: DiscoveruiProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [postUrl, setPostUrl] = useState("");
   const { data: session } = useSession();
-  
 
   // State to track which modal is open and its caption
   const [isOpen, setIsOpen] = useState(false);
@@ -207,7 +206,9 @@ const Discoverui = ({ discover }: DiscoveruiProps) => {
         {/* Modal for viewing full caption */}
         {isOpen && (
           <Modal title="Caption" setIsOpen={setIsOpen}>
-            <p className="text-sm text-start">{activeCaption}</p>
+            <p className="text-sm text-start whitespace-pre-wrap">
+              {activeCaption}
+            </p>
           </Modal>
         )}
         {/* Modal for profile */}

@@ -26,21 +26,23 @@ export default function DiscoverModal({ discover, onClose }: DiscoverModalProps)
   const [isOpenProfile, setIsOpenProfile] = useState(false);
   const pathname = usePathname();
 
+  const connectionPostLength = discover.connectionpost?.length || 0;
+
   const handleNext = useCallback(() => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % (discover.connectionpost?.length + 1 || 1));
-  }, [discover.connectionpost]);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % (connectionPostLength + 1));
+  }, [connectionPostLength]);
   
   const handlePrev = useCallback(() => {
     setCurrentIndex((prevIndex) => 
-      (prevIndex - 1 + (discover.connectionpost?.length + 1 || 1)) % (discover.connectionpost?.length + 1 || 1)
+      (prevIndex - 1 + connectionPostLength + 1) % (connectionPostLength + 1)
     );
-  }, [discover.connectionpost]);
+  }, [connectionPostLength]);
   
   const carouselItems = Array.isArray(discover.connectionpost)
     ? [discover, ...discover.connectionpost]
     : discover.connectionpost === undefined ? [discover] : [];
 
-  const showNavigation = Array.isArray(discover.connectionpost) && discover.connectionpost.length > 0;
+    const showNavigation = connectionPostLength > 0;
   const postUrl = `${process.env.NEXT_PUBLIC_API_URL}/discover/${discover._id}?from=link`;
   const isCurrentUser = session?.user.username === discover.username;
 
@@ -82,7 +84,7 @@ export default function DiscoverModal({ discover, onClose }: DiscoverModalProps)
       </div>
       <div className="p-2 rounded-b-xl flex flex-col gap-2">
         <h3 className="text-lg">{item.discoverName}</h3>
-        <p className="text-sm w-auto break-words">{item.caption}</p>
+        <p className="text-sm w-auto break-words text-start whitespace-pre-wrap">{item.caption}</p>
       </div>
     </div>
   ), [ isCurrentUser, discover._id]);

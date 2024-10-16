@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import {
@@ -23,10 +23,7 @@ interface AppModalProps {
   onClose: () => void;
 }
 
-export default function AppModal({
-  app,
-  onClose,
-}: AppModalProps) {
+export default function AppModal({ app, onClose }: AppModalProps) {
   const { data: session } = useSession();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isOpenProfile, setIsOpenProfile] = useState(false);
@@ -35,50 +32,49 @@ export default function AppModal({
     setIsLoading(true);
     // The actual redirection will be handled by the Link component
   };
+  const connectionPostLength = app.connectionpost?.length || 0;
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setCurrentIndex(
-      (prevIndex) => (prevIndex + 1) % (app.connectionpost.length + 1)
+      (prevIndex) => (prevIndex + 1) % (connectionPostLength + 1)
     );
-  };
+  }, [connectionPostLength]);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     setCurrentIndex(
       (prevIndex) =>
-        (prevIndex - 1 + app.connectionpost.length + 1) %
-        (app.connectionpost.length + 1)
+        (prevIndex - 1 + connectionPostLength + 1) % (connectionPostLength + 1)
     );
-  };
+  }, [connectionPostLength]);
   const carouselItems = Array.isArray(app.connectionpost)
     ? [app, ...app.connectionpost]
     : [app];
 
-  const showNavigation =
-    Array.isArray(app.connectionpost) &&
-    app.connectionpost.length > 0;
+  const showNavigation = connectionPostLength > 0;
 
   const pathname = usePathname();
   const postUrl = `${process.env.NEXT_PUBLIC_API_URL}/application/${app._id}?from=link`;
   const isCurrentUser = session?.user.username === app.username;
 
-  const renderCarouselItem = (item: App | App['connectionpost'][0], index: number) => (
+  const renderCarouselItem = (
+    item: App | App["connectionpost"][0],
+    index: number
+  ) => (
     <div key={index} className="w-full flex-shrink-0 flex flex-col gap-2">
-      
       <div className="flex items-center justify-between text-xs md:text-sm">
         <div className="flex items-center space-x-3">
-        <ConditionalProfilePicture
-                  username={item.username}
-                  image={item.image}
-                  index={index}
-                  
-                  setIsOpen={setIsOpenProfile}
-                />
+          <ConditionalProfilePicture
+            username={item.username}
+            image={item.image}
+            index={index}
+            setIsOpen={setIsOpenProfile}
+          />
 
           <div className="flex flex-col min-w-0 flex-shrink">
             <div className="text-sm font-medium truncate">{item.name}</div>
             <Moment className="text-xs font-extralight text-gray-500" fromNow>
-                {new Date(item.createdAt)}
-              </Moment>
+              {new Date(item.createdAt)}
+            </Moment>
           </div>
         </div>
 
@@ -93,7 +89,9 @@ export default function AppModal({
       </div>
       <div className="p-2 rounded-b-xl flex flex-col gap-2">
         <h3 className="text-lg">{item.appName}</h3>
-        <p className="text-sm w-auto break-words">{item.caption}</p>
+        <p className="text-sm w-auto break-words text-start whitespace-pre-wrap">
+          {item.caption}
+        </p>
       </div>
     </div>
   );
@@ -114,25 +112,28 @@ export default function AppModal({
               )}
 
               {showNavigation && (
-                <button onClick={handleNext} className="hover:text-teal-500 ml-2">
+                <button
+                  onClick={handleNext}
+                  className="hover:text-teal-500 ml-2"
+                >
                   <IoIosArrowDropright size={20} />
                 </button>
               )}
             </div>
 
             <div>
-            {app.place && (
-              <a
-                href={`https://www.google.com/maps?q=${encodeURIComponent(
-                  app.place
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs font-light truncate hover:underline"
-              >
-                {app.place}
-              </a>
-            )}
+              {app.place && (
+                <a
+                  href={`https://www.google.com/maps?q=${encodeURIComponent(
+                    app.place
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-light truncate hover:underline"
+                >
+                  {app.place}
+                </a>
+              )}
             </div>
 
             {pathname.startsWith("/application") ? (
@@ -195,34 +196,34 @@ export default function AppModal({
             </div>
           </div>
         </div>
-         {/* Modal for profile */}
-      {isOpenProfile && (
-        <Modal title="Let's get Started" setIsOpen={setIsOpenProfile}>
-          <p className="mb-4 text-center">
-          Can&apos;t comment without signing in!
-          </p>
-          <Link href="/signin" passHref>
-            <button
-              className={`bg-teal-500 hover:bg-teal-700 py-2 px-4 rounded-xl relative ${
-                isLoading ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-              onClick={handleSignIn}
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <>
-                  <span className="opacity-0">Sign In / Register</span>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                  </div>
-                </>
-              ) : (
-                "Sign In / Register"
-              )}
-            </button>
-          </Link>
-        </Modal>
-      )}
+        {/* Modal for profile */}
+        {isOpenProfile && (
+          <Modal title="Let's get Started" setIsOpen={setIsOpenProfile}>
+            <p className="mb-4 text-center">
+              Can&apos;t comment without signing in!
+            </p>
+            <Link href="/signin" passHref>
+              <button
+                className={`bg-teal-500 hover:bg-teal-700 py-2 px-4 rounded-xl relative ${
+                  isLoading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                onClick={handleSignIn}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <span className="opacity-0">Sign In / Register</span>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    </div>
+                  </>
+                ) : (
+                  "Sign In / Register"
+                )}
+              </button>
+            </Link>
+          </Modal>
+        )}
       </div>
     </div>
   );

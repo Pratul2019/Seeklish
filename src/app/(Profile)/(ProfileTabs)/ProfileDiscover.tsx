@@ -118,7 +118,7 @@ const ProfileDiscover: React.FC<ProfileDiscoverProps> = ({
                       )}
                   </div>
 
-                  <div className="flex flex-col gap-2 items-center w-full md:w-64 xl:w-80">
+                  <div className="flex flex-col gap-2 items-center ">
                     <div
                       onClick={() => handleDiscoverClick(discover)}
                       className="cursor-pointer"
@@ -128,7 +128,7 @@ const ProfileDiscover: React.FC<ProfileDiscoverProps> = ({
                         alt=""
                         width={1000}
                         height={1000}
-                        className="object-cover rounded-3xl w-full h-48 md:h-64 xl:h-80"
+                        className="object-cover rounded-3xl w-96 h-80"
                         priority={true}
                       />
                     </div>

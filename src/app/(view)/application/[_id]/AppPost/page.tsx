@@ -83,7 +83,7 @@ export default function AppModal({ app }: AppModalProps) {
       </div>
       <div className="p-2 rounded-b-xl flex flex-col gap-2">
         <h3 className="text-lg">{item.appName}</h3>
-        <p className="text-sm w-auto break-words">{item.caption}</p>
+        <p className="text-sm w-auto break-words whitespace-pre-wrap text-start">{item.caption}</p>
       </div>
     </div>
   );

@@ -61,7 +61,7 @@ const RentalSearch = ({ results: initialResults }: RentalSearchProps) => {
                 className="cursor-pointer"
               >
                 <Image
-                  className="rounded-xl"
+                  className="rounded-xl object-cover h-80 "
                   src={result.rentalImage}
                   alt=""
                   width={1000}
