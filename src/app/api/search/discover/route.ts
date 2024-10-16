@@ -6,9 +6,13 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
   try {
+    console.log("Received GET request for Discover search");
+
     const query = req.nextUrl.searchParams.get("query");
+    console.log("Query parameter:", query);
 
     if (!query) {
+      console.log("Query parameter is required");
       return NextResponse.json(
         { error: "Query parameter is required" },
         { status: 400 }
@@ -16,25 +20,47 @@ export async function GET(req: NextRequest) {
     }
 
     await dbConnect();
+    console.log("Database connected");
 
+    console.time("Discover search query execution");
     const results = await DiscoverModel.aggregate([
       {
         $search: {
           index: "Discover",
-          text: {
-            query: query,
-            path: ["discoverName", "place"],
-          },
-        },
+          compound: {
+            should: [
+              {
+                text: {
+                  query: query,
+                  path: "discoverName",
+                  fuzzy: {
+                    maxEdits: 1,
+                    prefixLength: 1
+                  }
+                }
+              },
+              {
+                text: {
+                  query: query,
+                  path: "place",
+                  fuzzy: {
+                    maxEdits: 1,
+                    prefixLength: 1
+                  }
+                }
+              }
+            ]
+          }
+        }
       },
-      {
-        $limit: 10,
-      },
+      // {
+      //   $limit: 10,
+      // },
       {
         $project: {
           _id: 1,
           name: 1,
-            discoverName: 1,
+          discoverName: 1,
           image: 1,
           discoverImage: 1,
           caption: 1,
@@ -46,10 +72,12 @@ export async function GET(req: NextRequest) {
         },
       },
     ]);
+    console.timeEnd("Discover search query execution");
 
+    console.log("Discover search results:", results);
     return NextResponse.json(results);
   } catch (error) {
-    console.error("Error in search:", error);
+    console.error("Error in Discover search:", error);
     return NextResponse.json(
       { error: "An error occurred while fetching data" },
       { status: 500 }

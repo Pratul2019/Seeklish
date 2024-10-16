@@ -27,15 +27,35 @@ export async function GET(req: NextRequest) {
       {
         $search: {
           index: "Rental",
-          text: {
-            query: query,
-            path: ["rentalName", "place"],
-          },
-        },
+          compound: {
+            should: [
+              {
+                text: {
+                  query: query,
+                  path: "rentalName",
+                  fuzzy: {
+                    maxEdits: 1,
+                    prefixLength: 1
+                  }
+                }
+              },
+              {
+                text: {
+                  query: query,
+                  path: "place",
+                  fuzzy: {
+                    maxEdits: 1,
+                    prefixLength: 1
+                  }
+                }
+              }
+            ]
+          }
+        }
       },
-      {
-        $limit: 10,
-      },
+      // {
+      //   $limit: 10,
+      // },
       {
         $project: {
           _id: 1,
@@ -63,7 +83,6 @@ export async function GET(req: NextRequest) {
       { status: 500 }
     );
   } finally {
-    // await mongoose.disconnect();
     console.log("Database disconnected");
   }
 }
