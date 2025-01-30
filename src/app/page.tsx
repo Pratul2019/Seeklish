@@ -93,7 +93,7 @@ export default async function Home() {
           <div className="flex flex-col gap-4 ml-6 md:ml-0 md:mt-16">
             <p className="w-72 ">
               Share your Experience!. <br />
-              Collaborate with friends by adding to their existing posts!
+              Collaborate with your CONNECTIONS by adding to their existing posts!
             </p>
             <LoggingButton />
           </div>

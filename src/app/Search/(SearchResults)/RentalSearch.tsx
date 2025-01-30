@@ -116,14 +116,14 @@ const RentalSearch = ({ results: initialResults }: RentalSearchProps) => {
 
       {isOpen && (
         <Modal title="Caption" setIsOpen={setIsOpen}>
-          <p className="text-sm text-start">{activeCaption}</p>
+          <p className="text-sm text-start whitespace-pre-wrap">{activeCaption}</p>
         </Modal>
       )}
-      {isOpen && (
+      {/* {isOpen && (
         <Modal title="Caption" setIsOpen={setIsOpen}>
           <p className="text-sm text-start">{activeCaption}</p>
         </Modal>
-      )}
+      )} */}
       {isOpenProfile && (
         <Modal title="Let's get Started" setIsOpen={setIsOpenProfile}>
           <p className="mb-4 text-center">

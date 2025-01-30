@@ -80,6 +80,7 @@ const Rentalui = ({ rental }: RentaluiProps) => {
             height={1000}
             style={{ objectFit: "cover" }}
             priority={true}
+            
           />
         </div>
         <div className="flex items-center justify-between text-sm md:text-base ml-2">
